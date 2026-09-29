@@ -7,135 +7,90 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#f2c14e;--gold-d:#a8791a;--bg:#06080e;--line:rgba(255,255,255,.07);--txt:#e9eef8;--muted:#8695ac;--danger:#ff4d5e}
-body{font-family:'Cairo',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;
-  user-select:none;-webkit-user-select:none;
-  background:radial-gradient(1000px 500px at 85% -10%, #1b2436 0%, transparent 60%),
-             radial-gradient(800px 400px at -10% 110%, #241b06 0%, transparent 55%),var(--bg)}
+:root{--gold:#f2c14e;--bg:#06080e;--line:rgba(255,255,255,.07);--txt:#e9eef8;--muted:#8695ac;--danger:#ff4d5e}
+body{font-family:'Cairo',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;user-select:none;-webkit-user-select:none;
+  background:radial-gradient(1000px 500px at 85% -10%, #1b2436 0%, transparent 60%),radial-gradient(800px 400px at -10% 110%, #241b06 0%, transparent 55%),var(--bg)}
 button,input,select{font-family:inherit}
 button{cursor:pointer;border:0;background:none;color:inherit}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:8px}
-
-.topbar{height:66px;display:flex;align-items:center;gap:12px;padding:0 20px;border-bottom:1px solid var(--line);
-  background:rgba(8,12,20,.85);backdrop-filter:blur(14px);position:sticky;top:0;z-index:50}
+.topbar{height:66px;display:flex;align-items:center;gap:12px;padding:0 20px;border-bottom:1px solid var(--line);background:rgba(8,12,20,.85);backdrop-filter:blur(14px);position:sticky;top:0;z-index:50}
 .brand{display:flex;align-items:center;gap:11px}
-.brand-mark{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;
-  background:linear-gradient(145deg,#f2c14e,#a8791a);box-shadow:0 6px 18px rgba(242,193,78,.28)}
-.brand h1{font-size:17px;font-weight:900;background:linear-gradient(90deg,#fff,#f2c14e);
-  -webkit-background-clip:text;background-clip:text;color:transparent}
+.brand-mark{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:linear-gradient(145deg,#f2c14e,#a8791a);box-shadow:0 6px 18px rgba(242,193,78,.28)}
+.brand h1{font-size:17px;font-weight:900;background:linear-gradient(90deg,#fff,#f2c14e);-webkit-background-clip:text;background-clip:text;color:transparent}
 .brand span{font-size:10px;color:var(--muted);letter-spacing:2.5px;font-weight:600}
 .spacer{flex:1}
 .btn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:11px;font-size:13px;font-weight:700;transition:.2s}
 .btn-gold{background:linear-gradient(145deg,#f2c14e,#c9922c);color:#1a1206;box-shadow:0 6px 18px rgba(242,193,78,.25)}
-.btn-gold:hover{transform:translateY(-1px);box-shadow:0 9px 24px rgba(242,193,78,.4)}
+.btn-gold:hover{transform:translateY(-1px)}
 .btn-ghost{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--txt)}
-.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(242,193,78,.4)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
 .btn-danger{background:rgba(255,77,94,.12);border:1px solid rgba(255,77,94,.3);color:#ff8a95}
-.btn-danger:hover{background:rgba(255,77,94,.22)}
-
 .login-wrap{min-height:calc(100vh - 66px);display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{width:100%;max-width:420px;padding:34px 28px;border-radius:22px;
-  background:linear-gradient(180deg,#131c2c,#0c121d);border:1px solid rgba(255,255,255,.09);
-  box-shadow:0 40px 90px rgba(0,0,0,.7);text-align:center}
-.login-ico{width:76px;height:76px;margin:0 auto 18px;border-radius:22px;display:grid;place-items:center;font-size:32px;
-  background:linear-gradient(145deg,#f2c14e,#a8791a);box-shadow:0 16px 40px rgba(242,193,78,.4);
-  animation:float 3s ease-in-out infinite}
+.login-box{width:100%;max-width:420px;padding:34px 28px;border-radius:22px;background:linear-gradient(180deg,#131c2c,#0c121d);border:1px solid rgba(255,255,255,.09);box-shadow:0 40px 90px rgba(0,0,0,.7);text-align:center}
+.login-ico{width:76px;height:76px;margin:0 auto 18px;border-radius:22px;display:grid;place-items:center;font-size:32px;background:linear-gradient(145deg,#f2c14e,#a8791a);animation:float 3s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .login-box h2{font-size:20px;font-weight:900;margin-bottom:6px}
 .login-box > p{font-size:12.5px;color:var(--muted);margin-bottom:22px;line-height:1.7}
 .field{margin-bottom:14px;text-align:right}
 .field label{display:block;font-size:12px;font-weight:700;color:#b9c4d6;margin-bottom:6px}
-.field input,.field select{width:100%;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);
-  border:1px solid var(--line);color:var(--txt);font-size:13.5px;outline:none;transition:.2s}
+.field input,.field select{width:100%;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--txt);font-size:13.5px;outline:none;transition:.2s}
 .field input:focus,.field select:focus{border-color:rgba(242,193,78,.55);background:rgba(242,193,78,.05)}
 .field select option{background:#131c2c}
 .pass-wrap{position:relative}
 .pass-wrap input{padding-left:44px}
-.eye-btn{position:absolute;left:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:9px;
-  display:grid;place-items:center;font-size:15px;background:rgba(255,255,255,.05);transition:.2s}
-.eye-btn:hover{background:rgba(242,193,78,.15)}
+.eye-btn{position:absolute;left:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:15px;background:rgba(255,255,255,.05)}
 .wide{width:100%;justify-content:center;padding:13px;font-size:14px}
-.err-box{display:none;margin-top:12px;padding:11px 14px;border-radius:11px;background:rgba(255,77,94,.1);
-  border:1px solid rgba(255,77,94,.35);color:#ff8a95;font-size:12.5px;font-weight:700;text-align:center}
+.err-box{display:none;margin-top:12px;padding:11px 14px;border-radius:11px;background:rgba(255,77,94,.1);border:1px solid rgba(255,77,94,.35);color:#ff8a95;font-size:12.5px;font-weight:700;text-align:center}
 .err-box.show{display:block}
-
 .panel{max-width:1200px;margin:0 auto;padding:22px 18px 60px;display:none}
 .panel.show{display:block}
 .page-title{display:flex;align-items:center;gap:11px;margin-bottom:20px}
 .page-title::before{content:"";width:5px;height:26px;border-radius:5px;background:linear-gradient(180deg,#f2c14e,#a8791a)}
 .page-title h2{font-size:20px;font-weight:900}
 .page-title p{font-size:12.5px;color:var(--muted);margin-top:2px}
-
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:22px}
 .stat{padding:16px;border-radius:16px;background:linear-gradient(180deg,rgba(20,29,46,.9),rgba(14,21,33,.9));border:1px solid var(--line)}
 .stat .lbl{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;margin-bottom:6px}
 .stat .val{font-size:24px;font-weight:900;color:var(--gold)}
 .stat.green .val{color:#5be89a}
-
 .tabs{display:flex;gap:6px;padding:6px;border-radius:14px;background:rgba(255,255,255,.04);margin-bottom:20px}
 .tab{flex:1;padding:11px;border-radius:10px;font-size:13px;font-weight:700;color:var(--muted);transition:.2s}
 .tab.active{background:linear-gradient(145deg,#f2c14e,#c9922c);color:#1a1206}
 .tab-pane{display:none}
 .tab-pane.active{display:block}
-
-.card{padding:18px;border-radius:16px;margin-bottom:16px;
-  background:linear-gradient(180deg,rgba(20,29,46,.6),rgba(14,21,33,.6));border:1px solid var(--line)}
+.card{padding:18px;border-radius:16px;margin-bottom:16px;background:linear-gradient(180deg,rgba(20,29,46,.6),rgba(14,21,33,.6));border:1px solid var(--line)}
 .card h3{font-size:14px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.add-box{display:flex;gap:10px;align-items:flex-end;padding:14px;border-radius:14px;
-  background:rgba(242,193,78,.05);border:1px solid rgba(242,193,78,.18)}
+.add-box{display:flex;gap:10px;align-items:flex-end;padding:14px;border-radius:14px;background:rgba(242,193,78,.05);border:1px solid rgba(242,193,78,.18)}
 .add-box .field{flex:1;margin:0}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .list{display:flex;flex-direction:column;gap:8px;margin-top:14px;max-height:400px;overflow-y:auto;padding-left:4px}
-.item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;
-  background:rgba(255,255,255,.035);border:1px solid var(--line);transition:.2s}
-.item:hover{border-color:rgba(242,193,78,.3);background:rgba(242,193,78,.05)}
+.item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid var(--line);transition:.2s}
+.item:hover{border-color:rgba(242,193,78,.3)}
 .item .info{flex:1;min-width:0}
 .item .info b{display:block;font-size:13.5px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.item .info small{display:block;font-size:10.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;
-  white-space:nowrap;direction:ltr;text-align:right;margin-top:2px}
-.item .logo{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;overflow:hidden;
-  background:linear-gradient(145deg,#1d2739,#131a28);border:1px solid var(--line);font-size:11px;font-weight:800;color:var(--gold)}
+.item .info small{display:block;font-size:10.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right;margin-top:2px}
+.item .logo{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;overflow:hidden;background:linear-gradient(145deg,#1d2739,#131a28);border:1px solid var(--line);font-size:11px;font-weight:800;color:var(--gold)}
 .item .logo img{width:100%;height:100%;object-fit:contain;padding:4px}
-.item .tag{font-size:10px;font-weight:800;padding:4px 9px;border-radius:20px;
-  background:rgba(41,182,246,.15);color:#7fd4ff;white-space:nowrap}
+.item .tag{font-size:10px;font-weight:800;padding:4px 9px;border-radius:20px;background:rgba(41,182,246,.15);color:#7fd4ff;white-space:nowrap}
 .item .actions{display:flex;gap:6px;flex-shrink:0}
 .icon-btn{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:14px;transition:.2s}
 .icon-edit{background:rgba(41,182,246,.12);color:#7fd4ff}
-.icon-edit:hover{background:rgba(41,182,246,.28)}
 .icon-del{background:rgba(255,77,94,.12);color:#ff8a95}
-.icon-del:hover{background:rgba(255,77,94,.28)}
 .empty-txt{text-align:center;padding:20px;font-size:12.5px;color:var(--muted)}
 .sep{height:1px;background:var(--line);margin:18px 0}
-
-.modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:18px;
-  background:rgba(2,4,8,.82);backdrop-filter:blur(8px)}
+.modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(2,4,8,.82);backdrop-filter:blur(8px)}
 .modal.open{display:flex}
-.modal-box{width:100%;max-width:560px;max-height:88vh;overflow-y:auto;background:linear-gradient(180deg,#131c2c,#0c121d);
-  border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:24px;box-shadow:0 40px 90px rgba(0,0,0,.8)}
+.modal-box{width:100%;max-width:560px;max-height:88vh;overflow-y:auto;background:linear-gradient(180deg,#131c2c,#0c121d);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:24px;box-shadow:0 40px 90px rgba(0,0,0,.8)}
 .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .modal-head h3{font-size:16px;font-weight:800}
 .close-x{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.05);font-size:16px}
-.close-x:hover{background:rgba(255,77,94,.2);color:#ff8a95}
-
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);padding:12px 22px;
-  border-radius:12px;font-size:13px;font-weight:700;background:linear-gradient(145deg,#1a2436,#111a28);
-  border:1px solid rgba(242,193,78,.4);box-shadow:0 14px 40px rgba(0,0,0,.6);z-index:500;transition:.35s;opacity:0;pointer-events:none}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);padding:12px 22px;border-radius:12px;font-size:13px;font-weight:700;background:linear-gradient(145deg,#1a2436,#111a28);border:1px solid rgba(242,193,78,.4);box-shadow:0 14px 40px rgba(0,0,0,.6);z-index:500;transition:.35s;opacity:0;pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-
-.sync-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:20px;
-  font-size:10.5px;font-weight:800;background:rgba(40,199,111,.15);color:#5be89a;border:1px solid rgba(40,199,111,.3)}
-.sync-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#28c76f;
-  box-shadow:0 0 8px #28c76f;animation:pulse 1.5s infinite}
+.sync-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:20px;font-size:10.5px;font-weight:800;background:rgba(40,199,111,.15);color:#5be89a;border:1px solid rgba(40,199,111,.3)}
+.sync-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#28c76f;box-shadow:0 0 8px #28c76f;animation:pulse 1.5s infinite}
 @keyframes pulse{50%{opacity:.4}}
-
-@media(max-width:700px){
-  .row2{grid-template-columns:1fr}
-  .add-box{flex-direction:column;align-items:stretch}
-  .brand span{display:none}
-  .tab{font-size:11.5px;padding:9px 6px}
-  .item .tag{display:none}
-}
+@media(max-width:700px){.row2{grid-template-columns:1fr}.add-box{flex-direction:column;align-items:stretch}.brand span{display:none}.tab{font-size:11.5px;padding:9px 6px}.item .tag{display:none}}
 </style>
 </head>
 <body>
@@ -146,8 +101,8 @@ button{cursor:pointer;border:0;background:none;color:inherit}
     <div><h1>لوحة التحكم</h1><span>AL ANKABOOT SPORT</span></div>
   </div>
   <div class="spacer"></div>
-  <span class="sync-badge" id="syncBadge">مزامنة حية</span>
-  <a class="btn btn-ghost" href="index.html" target="_blank">👁️ عرض الموقع</a>
+  <span class="sync-badge">مزامنة حية</span>
+  <a class="btn btn-ghost" href="index.html">👁️ عرض الموقع</a>
   <button class="btn btn-danger" id="logoutBtn" style="display:none">خروج</button>
 </header>
 
@@ -167,180 +122,112 @@ button{cursor:pointer;border:0;background:none;color:inherit}
         <button class="eye-btn" id="eyeBtn" type="button">👁️</button>
       </div>
     </div>
-    <button class="btn btn-gold wide" id="loginBtn">🔓 دخول</button>
+    <button class="btn btn-gold wide" id="loginBtn" type="button">🔓 دخول</button>
     <div class="err-box" id="errBox"></div>
   </div>
 </div>
 
 <div class="panel" id="panel">
-  <div class="page-title">
-    <div><h2>إدارة الموقع</h2><p>كل تغيير هنا يظهر فوراً للمستخدم في كل التابات المفتوحة.</p></div>
-  </div>
-
+  <div class="page-title"><div><h2>إدارة الموقع</h2><p>كل تغيير يظهر فوراً للمستخدم.</p></div></div>
   <div class="stats">
     <div class="stat"><div class="lbl">📁 الأقسام</div><div class="val" id="statCats">0</div></div>
     <div class="stat green"><div class="lbl">📺 القنوات</div><div class="val" id="statChans">0</div></div>
   </div>
-
   <div class="tabs">
-    <button class="tab active" data-tab="tabCats">📁 الأقسام</button>
-    <button class="tab" data-tab="tabChans">📺 القنوات</button>
-    <button class="tab" data-tab="tabSet">⚙️ الإعدادات</button>
+    <button class="tab active" data-tab="tabCats" type="button">📁 الأقسام</button>
+    <button class="tab" data-tab="tabChans" type="button">📺 القنوات</button>
+    <button class="tab" data-tab="tabSet" type="button">⚙️ الإعدادات</button>
   </div>
 
   <div class="tab-pane active" id="tabCats">
     <div class="card">
       <h3>➕ إضافة قسم جديد</h3>
       <div class="add-box">
-        <div class="field">
-          <label>اسم القسم</label>
-          <input type="text" id="catNameInput" placeholder="مثال: beIN SPORTS" />
-        </div>
-        <div class="field">
-          <label>صورة/لوجو القسم (اختياري)</label>
-          <input type="text" id="catLogoInput" placeholder="https://..." style="direction:ltr;text-align:left" />
-        </div>
-        <button class="btn btn-gold" id="addCatBtn" style="padding:11px 20px">إضافة</button>
+        <div class="field"><label>اسم القسم</label><input type="text" id="catNameInput" placeholder="مثال: beIN SPORTS" /></div>
+        <div class="field"><label>صورة/لوجو (اختياري)</label><input type="text" id="catLogoInput" placeholder="https://..." style="direction:ltr;text-align:left" /></div>
+        <button class="btn btn-gold" id="addCatBtn" type="button" style="padding:11px 20px">إضافة</button>
       </div>
     </div>
-    <div class="card">
-      <h3>📁 كل الأقسام</h3>
-      <div class="list" id="catsList"></div>
-    </div>
+    <div class="card"><h3>📁 كل الأقسام</h3><div class="list" id="catsList"></div></div>
   </div>
 
   <div class="tab-pane" id="tabChans">
     <div class="card">
       <h3>➕ إضافة قناة جديدة</h3>
-      <div class="field">
-        <label>القسم التابع له</label>
-        <select id="chanCatSelect"></select>
-      </div>
+      <div class="field"><label>القسم التابع له</label><select id="chanCatSelect"></select></div>
       <div class="row2">
-        <div class="field">
-          <label>اسم القناة</label>
-          <input type="text" id="chanNameInput" placeholder="مثال: beIN SPORTS 1" />
-        </div>
-        <div class="field">
-          <label>صورة/لوجو القناة (اختياري)</label>
-          <input type="text" id="chanLogoInput" placeholder="https://..." style="direction:ltr;text-align:left" />
-        </div>
+        <div class="field"><label>اسم القناة</label><input type="text" id="chanNameInput" placeholder="مثال: beIN SPORTS 1" /></div>
+        <div class="field"><label>لوجو القناة (اختياري)</label><input type="text" id="chanLogoInput" placeholder="https://..." style="direction:ltr;text-align:left" /></div>
       </div>
-      <div class="field">
-        <label>رابط البث (m3u8 أو iframe)</label>
-        <input type="text" id="chanUrlInput" placeholder="https://example.com/stream.m3u8" style="direction:ltr;text-align:left" />
-      </div>
-      <button class="btn btn-gold wide" id="addChanBtn">➕ إضافة القناة</button>
+      <div class="field"><label>رابط البث (m3u8 أو iframe)</label><input type="text" id="chanUrlInput" placeholder="https://example.com/stream.m3u8" style="direction:ltr;text-align:left" /></div>
+      <button class="btn btn-gold wide" id="addChanBtn" type="button">➕ إضافة القناة</button>
     </div>
-    <div class="card">
-      <h3>📺 كل القنوات</h3>
-      <div class="list" id="chansList"></div>
-    </div>
+    <div class="card"><h3>📺 كل القنوات</h3><div class="list" id="chansList"></div></div>
   </div>
 
   <div class="tab-pane" id="tabSet">
     <div class="card">
       <h3>🔗 قناة التيليجرام</h3>
-      <div class="field">
-        <label>رابط القناة</label>
-        <input type="text" id="setTgUrl" placeholder="https://t.me/..." style="direction:ltr;text-align:left" />
-      </div>
-      <div class="field">
-        <label>اسم / وصف القناة</label>
-        <input type="text" id="setTgLabel" placeholder="AL ANKABOOT SPORT" />
-      </div>
-      <button class="btn btn-gold wide" id="saveTgBtn">💾 حفظ إعدادات التيليجرام</button>
+      <div class="field"><label>رابط القناة</label><input type="text" id="setTgUrl" style="direction:ltr;text-align:left" /></div>
+      <div class="field"><label>اسم / وصف القناة</label><input type="text" id="setTgLabel" /></div>
+      <button class="btn btn-gold wide" id="saveTgBtn" type="button">💾 حفظ الإعدادات</button>
     </div>
-
     <div class="card">
-      <h3>🔑 بيانات الدخول للوحة</h3>
+      <h3>🔑 بيانات الدخول</h3>
       <div class="row2">
-        <div class="field">
-          <label>اسم المستخدم الجديد</label>
-          <input type="text" id="setNewUser" placeholder="FF" />
-        </div>
-        <div class="field">
-          <label>كلمة المرور الجديدة</label>
-          <input type="text" id="setNewPass" placeholder="FFFF" />
-        </div>
+        <div class="field"><label>اسم المستخدم الجديد</label><input type="text" id="setNewUser" placeholder="FF" /></div>
+        <div class="field"><label>كلمة المرور الجديدة</label><input type="text" id="setNewPass" placeholder="FFFF" /></div>
       </div>
-      <button class="btn btn-ghost wide" id="changeCredsBtn">🔑 تحديث بيانات الدخول</button>
+      <button class="btn btn-ghost wide" id="changeCredsBtn" type="button">🔑 تحديث بيانات الدخول</button>
     </div>
-
     <div class="card">
       <h3>💾 النسخ الاحتياطي</h3>
       <div class="row2">
-        <button class="btn btn-ghost" id="exportBtn" style="justify-content:center;padding:12px">⬇️ تصدير نسخة</button>
-        <button class="btn btn-ghost" id="importBtn" style="justify-content:center;padding:12px">⬆️ استيراد نسخة</button>
+        <button class="btn btn-ghost" id="exportBtn" type="button" style="justify-content:center;padding:12px">⬇️ تصدير</button>
+        <button class="btn btn-ghost" id="importBtn" type="button" style="justify-content:center;padding:12px">⬆️ استيراد</button>
       </div>
       <input type="file" id="importFile" accept=".json" style="display:none" />
       <div class="sep"></div>
-      <button class="btn btn-danger wide" id="resetBtn">🗑️ حذف جميع البيانات</button>
+      <button class="btn btn-danger wide" id="resetBtn" type="button">🗑️ حذف جميع البيانات</button>
     </div>
   </div>
 </div>
 
 <div class="modal" id="editModal">
   <div class="modal-box">
-    <div class="modal-head">
-      <h3>✏️ تعديل القناة</h3>
-      <button class="close-x" data-close="editModal">✕</button>
-    </div>
+    <div class="modal-head"><h3>✏️ تعديل القناة</h3><button class="close-x" data-close="editModal" type="button">✕</button></div>
     <input type="hidden" id="editChanId" />
-    <div class="field">
-      <label>القسم</label>
-      <select id="editChanCat"></select>
-    </div>
+    <div class="field"><label>القسم</label><select id="editChanCat"></select></div>
     <div class="row2">
-      <div class="field">
-        <label>اسم القناة</label>
-        <input type="text" id="editChanName" />
-      </div>
-      <div class="field">
-        <label>صورة/لوجو القناة</label>
-        <input type="text" id="editChanLogo" style="direction:ltr;text-align:left" />
-      </div>
+      <div class="field"><label>اسم القناة</label><input type="text" id="editChanName" /></div>
+      <div class="field"><label>لوجو القناة</label><input type="text" id="editChanLogo" style="direction:ltr;text-align:left" /></div>
     </div>
-    <div class="field">
-      <label>رابط البث</label>
-      <input type="text" id="editChanUrl" style="direction:ltr;text-align:left" />
-    </div>
-    <button class="btn btn-gold wide" id="saveEditBtn">💾 حفظ التعديلات</button>
+    <div class="field"><label>رابط البث</label><input type="text" id="editChanUrl" style="direction:ltr;text-align:left" /></div>
+    <button class="btn btn-gold wide" id="saveEditBtn" type="button">💾 حفظ التعديلات</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============ ثوابت ============ */
 const STORE_KEY   = 'ankaboot_iptv_data';
 const SESSION_KEY = 'ankaboot_admin_session';
 const SYNC_CH     = 'ankaboot_sync_channel';
-const DEFAULT_USER = 'FF';
-const DEFAULT_PASS = 'FFFF';
+const MASTER_USER = 'FF';
+const MASTER_PASS = 'FFFF';
 
 const DEFAULT_STATE = {
-  telegram: 'https://t.me/alankabootsport',
-  tgLabel : 'AL ANKABOOT SPORT',
-  username: DEFAULT_USER,
-  password: DEFAULT_PASS,
-  categories: []
+  telegram:'https://t.me/alankabootsport', tgLabel:'AL ANKABOOT SPORT',
+  username:MASTER_USER, password:MASTER_PASS, categories:[]
 };
 
 let state = loadState();
 let editingChanId = null;
 
-/* ============ BroadcastChannel للمزامنة الفورية ============ */
 let syncCh = null;
-try {
-  syncCh = new BroadcastChannel(SYNC_CH);
-} catch(e){}
+try{ syncCh = new BroadcastChannel(SYNC_CH); }catch(e){}
+function broadcastUpdate(){ try{ syncCh && syncCh.postMessage({type:'update',at:Date.now()}); }catch(e){} }
 
-function broadcastUpdate(){
-  try{ syncCh && syncCh.postMessage({ type:'update', at: Date.now() }); }catch(e){}
-}
-
-/* ============ helpers ============ */
 const $  = (s,p=document) => p.querySelector(s);
 const $$ = (s,p=document) => [...p.querySelectorAll(s)];
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
@@ -355,38 +242,30 @@ function loadState(){
     const d = JSON.parse(raw);
     const b = clone(DEFAULT_STATE);
     return {
-      telegram : d.telegram || b.telegram,
-      tgLabel  : d.tgLabel  || b.tgLabel,
-      username : d.username || DEFAULT_USER,
-      password : d.password || DEFAULT_PASS,
+      telegram: d.telegram || b.telegram,
+      tgLabel : d.tgLabel  || b.tgLabel,
+      username: d.username || MASTER_USER,
+      password: d.password || MASTER_PASS,
       categories: Array.isArray(d.categories) ? d.categories : []
     };
   }catch(e){ return clone(DEFAULT_STATE); }
 }
 function saveState(){
-  try{
-    localStorage.setItem(STORE_KEY, JSON.stringify(state));
-    broadcastUpdate();
-  }catch(e){ toast('تعذر الحفظ'); }
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); broadcastUpdate(); }
+  catch(e){ toast('تعذر الحفظ'); }
 }
-
 let toastTimer;
 function toast(msg){
-  const t = $('#toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
 }
 function showError(msg){
   const box = $('#errBox');
   box.textContent = '❌ ' + msg;
-  box.classList.remove('show');
-  void box.offsetWidth;
-  box.classList.add('show');
+  box.classList.remove('show'); void box.offsetWidth; box.classList.add('show');
 }
 
-/* ============ تسجيل الدخول ============ */
+/* ===== تسجيل الدخول ===== */
 $('#eyeBtn').addEventListener('click', () => {
   const inp = $('#passInput');
   inp.type = inp.type === 'password' ? 'text' : 'password';
@@ -396,8 +275,11 @@ $('#eyeBtn').addEventListener('click', () => {
 function doLogin(){
   const u = $('#userInput').value.trim();
   const p = $('#passInput').value;
-  if(u === state.username && p === state.password){
-    sessionStorage.setItem(SESSION_KEY, '1');
+  // Master login دايماً شغال
+  const masterOk = (u === MASTER_USER && p === MASTER_PASS);
+  const stateOk  = (u === state.username && p === state.password);
+  if(masterOk || stateOk){
+    try{ sessionStorage.setItem(SESSION_KEY, '1'); }catch(e){}
     showPanel();
     toast('مرحباً بك 👋');
   }else{
@@ -415,12 +297,12 @@ function showPanel(){
   renderAll();
 }
 $('#logoutBtn').addEventListener('click', () => {
-  sessionStorage.removeItem(SESSION_KEY);
+  try{ sessionStorage.removeItem(SESSION_KEY); }catch(e){}
   location.reload();
 });
-if(sessionStorage.getItem(SESSION_KEY) === '1') showPanel();
+try{ if(sessionStorage.getItem(SESSION_KEY) === '1') showPanel(); }catch(e){}
 
-/* ============ تبويبات ============ */
+/* ===== تبويبات ===== */
 $$('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     $$('.tab').forEach(t => t.classList.remove('active'));
@@ -430,7 +312,7 @@ $$('.tab').forEach(tab => {
   });
 });
 
-/* ============ عرض ============ */
+/* ===== عرض ===== */
 function renderAll(){ renderStats(); renderCats(); renderChans(); renderChanCatSelects(); renderSettings(); }
 function renderStats(){
   $('#statCats').textContent = state.categories.length;
@@ -441,11 +323,9 @@ function renderCats(){
   if(!state.categories.length){ wrap.innerHTML = '<div class="empty-txt">📭 لا توجد أقسام بعد</div>'; return; }
   wrap.innerHTML = state.categories.map(c => `
     <div class="item">
-      <div class="logo">
-        ${c.logo ? `<img src="${esc(c.logo)}" onerror="this.style.display='none';this.parentNode.textContent='${esc(initials(c.name))}'">` : esc(initials(c.name))}
-      </div>
+      <div class="logo">${c.logo ? `<img src="${esc(c.logo)}" onerror="this.style.display='none';this.parentNode.textContent='${esc(initials(c.name))}'">` : esc(initials(c.name))}</div>
       <div class="info"><b>${esc(c.name)}</b><small>${(c.channels||[]).length} قناة</small></div>
-      <div class="actions"><button class="icon-btn icon-del" data-delcat="${c.id}">🗑️</button></div>
+      <div class="actions"><button class="icon-btn icon-del" data-delcat="${c.id}" type="button">🗑️</button></div>
     </div>`).join('');
 }
 function renderChans(){
@@ -458,8 +338,8 @@ function renderChans(){
         <div class="info"><b>${esc(ch.name)}</b><small>${esc(ch.url)}</small></div>
         <span class="tag">${esc(cat.name)}</span>
         <div class="actions">
-          <button class="icon-btn icon-edit" data-editchan="${cat.id}|${ch.id}">✏️</button>
-          <button class="icon-btn icon-del" data-delchan="${cat.id}|${ch.id}">🗑️</button>
+          <button class="icon-btn icon-edit" data-editchan="${cat.id}|${ch.id}" type="button">✏️</button>
+          <button class="icon-btn icon-del" data-delchan="${cat.id}|${ch.id}" type="button">🗑️</button>
         </div></div>`;
     });
   });
@@ -472,36 +352,27 @@ function renderChanCatSelects(){
   $('#chanCatSelect').innerHTML = opts;
   $('#editChanCat').innerHTML = opts;
 }
-function renderSettings(){
-  $('#setTgUrl').value   = state.telegram;
-  $('#setTgLabel').value = state.tgLabel;
-}
+function renderSettings(){ $('#setTgUrl').value = state.telegram; $('#setTgLabel').value = state.tgLabel; }
 
-/* ============ الأقسام ============ */
+/* ===== أقسام ===== */
 $('#addCatBtn').addEventListener('click', () => {
   const name = $('#catNameInput').value.trim();
   const logo = $('#catLogoInput').value.trim();
   if(!name) return toast('اكتب اسم القسم');
   if(state.categories.some(c => c.name.toLowerCase() === name.toLowerCase())) return toast('هذا القسم موجود');
   state.categories.push({ id: uid(), name, logo, channels: [] });
-  saveState();
-  $('#catNameInput').value = '';
-  $('#catLogoInput').value = '';
-  renderAll();
+  saveState(); $('#catNameInput').value = ''; $('#catLogoInput').value = ''; renderAll();
   toast('تم إضافة القسم ✅');
 });
 $('#catsList').addEventListener('click', e => {
-  const btn = e.target.closest('[data-delcat]');
-  if(!btn) return;
-  const cat = state.categories.find(c => c.id === btn.dataset.delcat);
-  if(!cat) return;
+  const btn = e.target.closest('[data-delcat]'); if(!btn) return;
+  const cat = state.categories.find(c => c.id === btn.dataset.delcat); if(!cat) return;
   if(!confirm(`حذف القسم "${cat.name}" وكل قنواته؟`)) return;
   state.categories = state.categories.filter(c => c.id !== cat.id);
-  saveState(); renderAll();
-  toast('تم حذف القسم 🗑️');
+  saveState(); renderAll(); toast('تم حذف القسم 🗑️');
 });
 
-/* ============ القنوات ============ */
+/* ===== قنوات ===== */
 $('#addChanBtn').addEventListener('click', () => {
   const catId = $('#chanCatSelect').value;
   const name  = $('#chanNameInput').value.trim();
@@ -510,35 +381,27 @@ $('#addChanBtn').addEventListener('click', () => {
   if(!catId) return toast('أضف قسماً أولاً');
   if(!name)  return toast('اكتب اسم القناة');
   if(!url)   return toast('اكتب رابط البث');
-  const cat = state.categories.find(c => c.id === catId);
-  if(!cat) return;
+  const cat = state.categories.find(c => c.id === catId); if(!cat) return;
   cat.channels = cat.channels || [];
   cat.channels.push({ id: uid(), name, url, logo });
   saveState();
-  $('#chanNameInput').value = '';
-  $('#chanUrlInput').value  = '';
-  $('#chanLogoInput').value = '';
-  renderAll();
-  toast('تم إضافة القناة ✅');
+  $('#chanNameInput').value = ''; $('#chanUrlInput').value = ''; $('#chanLogoInput').value = '';
+  renderAll(); toast('تم إضافة القناة ✅');
 });
 $('#chansList').addEventListener('click', e => {
   const delBtn  = e.target.closest('[data-delchan]');
   const editBtn = e.target.closest('[data-editchan]');
   if(delBtn){
     const [catId, chanId] = delBtn.dataset.delchan.split('|');
-    const cat = state.categories.find(c => c.id === catId);
-    if(!cat) return;
+    const cat = state.categories.find(c => c.id === catId); if(!cat) return;
     if(!confirm('حذف هذه القناة؟')) return;
     cat.channels = (cat.channels||[]).filter(c => c.id !== chanId);
-    saveState(); renderAll();
-    toast('تم حذف القناة 🗑️');
+    saveState(); renderAll(); toast('تم حذف القناة 🗑️');
   }
   if(editBtn){
     const [catId, chanId] = editBtn.dataset.editchan.split('|');
-    const cat = state.categories.find(c => c.id === catId);
-    if(!cat) return;
-    const ch = (cat.channels||[]).find(c => c.id === chanId);
-    if(!ch) return;
+    const cat = state.categories.find(c => c.id === catId); if(!cat) return;
+    const ch = (cat.channels||[]).find(c => c.id === chanId); if(!ch) return;
     editingChanId = chanId;
     $('#editChanId').value   = chanId;
     $('#editChanCat').value  = catId;
@@ -555,40 +418,28 @@ $('#saveEditBtn').addEventListener('click', () => {
   const url      = $('#editChanUrl').value.trim();
   const logo     = $('#editChanLogo').value.trim();
   if(!name || !url) return toast('اكمل البيانات');
-  state.categories.forEach(cat => {
-    cat.channels = (cat.channels||[]).filter(c => c.id !== chanId);
-  });
-  const targetCat = state.categories.find(c => c.id === newCatId);
-  if(!targetCat) return;
+  state.categories.forEach(cat => { cat.channels = (cat.channels||[]).filter(c => c.id !== chanId); });
+  const targetCat = state.categories.find(c => c.id === newCatId); if(!targetCat) return;
   targetCat.channels = targetCat.channels || [];
   targetCat.channels.push({ id: chanId, name, url, logo });
-  saveState();
-  $('#editModal').classList.remove('open');
-  renderAll();
-  toast('تم حفظ التعديلات ✅');
+  saveState(); $('#editModal').classList.remove('open'); renderAll(); toast('تم حفظ التعديلات ✅');
 });
 $$('[data-close]').forEach(b => b.addEventListener('click', () => $('#' + b.dataset.close).classList.remove('open')));
 $$('.modal').forEach(m => m.addEventListener('click', e => { if(e.target === m) m.classList.remove('open'); }));
 
-/* ============ الإعدادات ============ */
+/* ===== إعدادات ===== */
 $('#saveTgBtn').addEventListener('click', () => {
   const url = $('#setTgUrl').value.trim();
   const lbl = $('#setTgLabel').value.trim() || 'AL ANKABOOT SPORT';
-  if(!url) return toast('اكتب رابط قناة التيليجرام');
-  state.telegram = url;
-  state.tgLabel = lbl;
-  saveState();
-  toast('تم حفظ الإعدادات ✅');
+  if(!url) return toast('اكتب رابط القناة');
+  state.telegram = url; state.tgLabel = lbl; saveState(); toast('تم الحفظ ✅');
 });
 $('#changeCredsBtn').addEventListener('click', () => {
   const u = $('#setNewUser').value.trim();
   const p = $('#setNewPass').value.trim();
   if(!u || !p) return toast('اكتب اسم مستخدم وكلمة مرور');
-  state.username = u;
-  state.password = p;
-  saveState();
-  $('#setNewUser').value = '';
-  $('#setNewPass').value = '';
+  state.username = u; state.password = p; saveState();
+  $('#setNewUser').value = ''; $('#setNewPass').value = '';
   toast('تم تحديث بيانات الدخول 🔑');
 });
 $('#exportBtn').addEventListener('click', () => {
@@ -596,14 +447,11 @@ $('#exportBtn').addEventListener('click', () => {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'ankaboot-backup-' + new Date().toISOString().slice(0,10) + '.json';
-  a.click();
-  URL.revokeObjectURL(a.href);
-  toast('تم تصدير النسخة ⬇️');
+  a.click(); URL.revokeObjectURL(a.href); toast('تم التصدير ⬇️');
 });
 $('#importBtn').addEventListener('click', () => $('#importFile').click());
 $('#importFile').addEventListener('change', e => {
-  const file = e.target.files[0];
-  if(!file) return;
+  const file = e.target.files[0]; if(!file) return;
   const reader = new FileReader();
   reader.onload = ev => {
     try{
@@ -614,30 +462,24 @@ $('#importFile').addEventListener('change', e => {
       if(d.tgLabel)  state.tgLabel  = d.tgLabel;
       if(d.username) state.username = d.username;
       if(d.password) state.password = d.password;
-      saveState(); renderAll();
-      toast('تم استيراد النسخة ✅');
+      saveState(); renderAll(); toast('تم الاستيراد ✅');
     }catch(err){ toast('ملف غير صالح ❌'); }
   };
-  reader.readAsText(file);
-  e.target.value = '';
+  reader.readAsText(file); e.target.value = '';
 });
 $('#resetBtn').addEventListener('click', () => {
   if(!confirm('سيتم حذف جميع البيانات. متابعة؟')) return;
-  localStorage.removeItem(STORE_KEY);
-  state = clone(DEFAULT_STATE);
-  saveState();
-  renderAll();
-  toast('تم حذف كل البيانات 🗑️');
+  localStorage.removeItem(STORE_KEY); state = clone(DEFAULT_STATE); saveState(); renderAll();
+  toast('تم الحذف 🗑️');
 });
 
-/* ============ حماية ============ */
+/* ===== حماية ===== */
 document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
 document.addEventListener('keydown', e => {
   const k = e.key;
-  if(k === 'F12'){ e.preventDefault(); e.stopPropagation(); return false; }
+  if(k === 'F12'){ e.preventDefault(); return false; }
   if(e.ctrlKey && e.shiftKey && ['I','J','C','K','i','j','c','k'].includes(k)){ e.preventDefault(); return false; }
   if(e.ctrlKey && ['u','U','s','S','p','P','a','A'].includes(k)){ e.preventDefault(); return false; }
-  if(e.metaKey && e.altKey && ['I','J','C'].includes(k)){ e.preventDefault(); return false; }
 }, true);
 document.addEventListener('dragstart', e => e.preventDefault());
 </script>
