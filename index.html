@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>لوحة التحكم</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>لوحة التحكم | AL ANKABOOT SPORT</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -14,6 +14,7 @@ body{font-family:Cairo,system-ui,sans-serif;background:#06080e;color:#e9eef8;min
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 input,select{font-family:inherit}
 
+/* ===== Login ===== */
 #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .lbox{width:100%;max-width:400px;background:#0c121d;border:1px solid rgba(255,255,255,.09);
   border-radius:22px;padding:32px 26px;text-align:center;box-shadow:0 40px 90px rgba(0,0,0,.7)}
@@ -31,9 +32,10 @@ input,select{font-family:inherit}
   box-shadow:0 8px 22px rgba(242,193,78,.3);transition:.2s}
 #loginBtn:active{transform:scale(.98)}
 #errMsg{display:none;margin-top:14px;padding:12px;border-radius:11px;background:rgba(255,77,94,.15);
-  border:1px solid rgba(255,77,94,.4);color:#ff8a95;font-size:12.5px;font-weight:700;line-height:1.6;text-align:right}
+  border:1px solid rgba(255,77,94,.4);color:#ff8a95;font-size:12.5px;font-weight:700;line-height:1.7;text-align:right}
 
-#panel{display:none;padding:20px;max-width:1100px;margin:0 auto}
+/* ===== Panel ===== */
+#panel{display:none;padding:20px;max-width:1100px;margin:0 auto;padding-bottom:60px}
 .phead{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;
   padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.07)}
 .phead h2{font-size:19px;font-weight:900}
@@ -61,8 +63,6 @@ input,select{font-family:inherit}
 select{width:100%;padding:13px 14px;border-radius:12px;background:rgba(255,255,255,.04);
   border:1px solid rgba(255,255,255,.07);color:#e9eef8;font-size:14px;outline:none}
 select option{background:#131c2c}
-.ver{position:fixed;bottom:6px;left:6px;font-size:11px;color:#f2c14e;z-index:999;
-  background:rgba(0,0,0,.5);padding:3px 8px;border-radius:6px;font-weight:800}
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);
   padding:12px 22px;border-radius:12px;background:#1a2436;border:1px solid #f2c14e;
   color:#e9eef8;font-size:13px;font-weight:700;z-index:500;transition:.35s;
@@ -79,11 +79,11 @@ select option{background:#131c2c}
     <p>هذه الصفحة مخصصة لمدير الموقع فقط</p>
     <div class="f">
       <label>اسم المستخدم</label>
-      <input type="text" id="uInput" placeholder="FF" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <input type="text" id="uInput" placeholder="أدخل اسم المستخدم" autocomplete="off" autocapitalize="off" spellcheck="false">
     </div>
     <div class="f">
       <label>كلمة المرور</label>
-      <input type="password" id="pInput" placeholder="FFFF" autocomplete="off">
+      <input type="password" id="pInput" placeholder="أدخل كلمة المرور" autocomplete="off">
     </div>
     <button type="button" id="loginBtn" onclick="window.__doLogin()">🔓 دخول</button>
     <div id="errMsg"></div>
@@ -126,6 +126,15 @@ select option{background:#131c2c}
   </div>
 
   <div class="card">
+    <h3>🔑 بيانات الدخول للوحة</h3>
+    <div class="inrow">
+      <div class="f"><label>اسم المستخدم الجديد</label><input type="text" id="newUser" placeholder="اتركه فاضي لو مش عايز تغييره"></div>
+      <div class="f"><label>كلمة المرور الجديدة</label><input type="text" id="newPass" placeholder="اتركها فاضية لو مش عايز تغييرها"></div>
+    </div>
+    <button type="button" class="btn-ghost" style="width:100%;margin-top:10px" onclick="window.__changeCreds()">🔑 تحديث بيانات الدخول</button>
+  </div>
+
+  <div class="card">
     <h3>💾 نسخ / حذف</h3>
     <button type="button" class="btn-ghost" style="width:100%;margin-bottom:8px" onclick="window.__exportData()">⬇️ تصدير نسخة</button>
     <button type="button" class="btn-ghost" style="width:100%;margin-bottom:8px" onclick="document.getElementById('impFile').click()">⬆️ استيراد نسخة</button>
@@ -135,7 +144,6 @@ select option{background:#131c2c}
 </div>
 
 <div class="toast" id="toast"></div>
-<div class="ver">v3.0</div>
 
 <script>
 (function(){
@@ -143,31 +151,45 @@ select option{background:#131c2c}
 
   var STORE_KEY = 'ankaboot_iptv_data';
   var SESSION   = 'ankaboot_admin_session';
-  var USER = 'FF';
-  var PASS = 'FFFF';
-
-  var state = null;
+  var SYNC_NAME = 'ankaboot_sync_channel';
+  var DEFAULT_USER = 'FF';
+  var DEFAULT_PASS = 'FFFF';
 
   function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s||'').replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+  function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
 
   function loadState(){
     try{
       var raw = localStorage.getItem(STORE_KEY);
-      if(!raw) return { telegram:'https://t.me/alankabootsport', categories:[] };
+      if(!raw) return {
+        telegram:'https://t.me/alankabootsport',
+        username: DEFAULT_USER,
+        password: DEFAULT_PASS,
+        categories:[]
+      };
       var d = JSON.parse(raw);
       return {
         telegram: d.telegram || 'https://t.me/alankabootsport',
+        username: d.username || DEFAULT_USER,
+        password: d.password || DEFAULT_PASS,
         categories: Array.isArray(d.categories) ? d.categories : []
       };
     }catch(e){
-      return { telegram:'https://t.me/alankabootsport', categories:[] };
+      return { telegram:'https://t.me/alankabootsport', username: DEFAULT_USER, password: DEFAULT_PASS, categories:[] };
     }
   }
+
+  var state = loadState();
 
   function saveState(){
     try{
       localStorage.setItem(STORE_KEY, JSON.stringify(state));
-      try{ var bc = new BroadcastChannel('ankaboot_sync'); bc.postMessage({t:Date.now()}); bc.close(); }catch(e){}
+      try{
+        var bc = new BroadcastChannel(SYNC_NAME);
+        bc.postMessage({ type:'update', at: Date.now() });
+        bc.close();
+      }catch(e){}
     }catch(e){ toast('تعذر الحفظ'); }
   }
 
@@ -177,23 +199,22 @@ select option{background:#131c2c}
     clearTimeout(tt); tt = setTimeout(function(){ t.classList.remove('show'); }, 2200);
   }
 
-  function esc(s){ return String(s||'').replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
-  function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
-
-  // ===== Login =====
+  /* ===== Login ===== */
   window.__doLogin = function(){
     var u = ($('uInput').value || '').trim();
     var p = $('pInput').value || '';
     var err = $('errMsg');
 
-    if(u === USER && p === PASS){
+    var masterOk = (u === DEFAULT_USER && p === DEFAULT_PASS);
+    var savedOk  = (u === state.username && p === state.password);
+
+    if(masterOk || savedOk){
       try{ sessionStorage.setItem(SESSION, '1'); }catch(e){}
       showPanel();
+      toast('مرحباً بك 👋');
     } else {
-      err.innerHTML = '❌ البيانات غلط<br>'
-        + 'دخلت يوزر: <b>' + esc(u || '(فاضي)') + '</b><br>'
-        + 'طول الباس: <b>' + p.length + '</b> حرف<br>'
-        + 'المطلوب: <b>FF</b> / <b>FFFF</b>';
+      err.innerHTML = '❌ بيانات الدخول غير صحيحة<br>'
+        + 'تأكد من اسم المستخدم وكلمة المرور';
       err.style.display = 'block';
     }
   };
@@ -206,11 +227,10 @@ select option{background:#131c2c}
   function showPanel(){
     $('loginScreen').style.display = 'none';
     $('panel').style.display = 'block';
-    state = loadState();
     renderAll();
   }
 
-  // ===== Render =====
+  /* ===== Render ===== */
   function renderAll(){
     renderCats();
     renderChans();
@@ -257,11 +277,14 @@ select option{background:#131c2c}
     }).join('');
   }
 
-  // ===== Actions =====
+  /* ===== Actions ===== */
   window.__addCat = function(){
     var name = $('catName').value.trim();
     var logo = $('catLogo').value.trim();
     if(!name) return toast('اكتب اسم القسم');
+    if(state.categories.some(function(c){ return c.name.toLowerCase() === name.toLowerCase(); })){
+      return toast('هذا القسم موجود بالفعل');
+    }
     state.categories.push({ id: uid(), name: name, logo: logo, channels: [] });
     saveState();
     $('catName').value = ''; $('catLogo').value = '';
@@ -291,7 +314,8 @@ select option{background:#131c2c}
     cat.channels.push({ id: uid(), name: name, url: url, logo: logo });
     saveState();
     $('chName').value = ''; $('chUrl').value = ''; $('chLogo').value = '';
-    renderAll(); toast('تم إضافة القناة ✅');
+    renderAll();
+    toast('تم إضافة القناة ✅');
   };
 
   window.__delChan = function(catId, chId){
@@ -307,6 +331,17 @@ select option{background:#131c2c}
     if(!url) return toast('اكتب الرابط');
     state.telegram = url;
     saveState(); toast('تم الحفظ ✅');
+  };
+
+  window.__changeCreds = function(){
+    var u = $('newUser').value.trim();
+    var p = $('newPass').value.trim();
+    if(!u && !p) return toast('اكتب حاجة جديدة');
+    if(u) state.username = u;
+    if(p) state.password = p;
+    saveState();
+    $('newUser').value = ''; $('newPass').value = '';
+    toast('تم تحديث بيانات الدخول 🔑');
   };
 
   window.__exportData = function(){
@@ -326,7 +361,10 @@ select option{background:#131c2c}
         var d = JSON.parse(ev.target.result);
         if(!d.categories) throw 0;
         state = d;
-        saveState(); renderAll(); toast('تم الاستيراد ✅');
+        if(!state.username) state.username = DEFAULT_USER;
+        if(!state.password) state.password = DEFAULT_PASS;
+        saveState(); renderAll();
+        toast('تم الاستيراد ✅');
       }catch(err){ toast('ملف غير صالح ❌'); }
     };
     r.readAsText(f);
@@ -335,16 +373,21 @@ select option{background:#131c2c}
 
   window.__resetAll = function(){
     if(!confirm('حذف كل البيانات؟')) return;
-    state = { telegram:'https://t.me/alankabootsport', categories:[] };
+    state = { telegram:'https://t.me/alankabootsport', username: DEFAULT_USER, password: DEFAULT_PASS, categories:[] };
     saveState(); renderAll(); toast('تم الحذف 🗑️');
   };
 
-  // ===== Auto-login =====
+  /* ===== Auto-login ===== */
   try{
     if(sessionStorage.getItem(SESSION) === '1') showPanel();
   }catch(e){}
 
-  // ===== Protection =====
+  /* ===== Enter key ===== */
+  $('pInput').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') window.__doLogin();
+  });
+
+  /* ===== Protection ===== */
   document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
   document.addEventListener('keydown', function(e){
     if(e.key === 'F12'){ e.preventDefault(); return false; }
