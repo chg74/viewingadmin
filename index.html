@@ -1,487 +1,358 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>لوحة التحكم | AL ANKABOOT SPORT</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>لوحة التحكم</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#f2c14e;--bg:#06080e;--line:rgba(255,255,255,.07);--txt:#e9eef8;--muted:#8695ac;--danger:#ff4d5e}
-body{font-family:'Cairo',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;user-select:none;-webkit-user-select:none;
-  background:radial-gradient(1000px 500px at 85% -10%, #1b2436 0%, transparent 60%),radial-gradient(800px 400px at -10% 110%, #241b06 0%, transparent 55%),var(--bg)}
-button,input,select{font-family:inherit}
-button{cursor:pointer;border:0;background:none;color:inherit}
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:8px}
-.topbar{height:66px;display:flex;align-items:center;gap:12px;padding:0 20px;border-bottom:1px solid var(--line);background:rgba(8,12,20,.85);backdrop-filter:blur(14px);position:sticky;top:0;z-index:50}
-.brand{display:flex;align-items:center;gap:11px}
-.brand-mark{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:linear-gradient(145deg,#f2c14e,#a8791a);box-shadow:0 6px 18px rgba(242,193,78,.28)}
-.brand h1{font-size:17px;font-weight:900;background:linear-gradient(90deg,#fff,#f2c14e);-webkit-background-clip:text;background-clip:text;color:transparent}
-.brand span{font-size:10px;color:var(--muted);letter-spacing:2.5px;font-weight:600}
-.spacer{flex:1}
-.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:11px;font-size:13px;font-weight:700;transition:.2s}
-.btn-gold{background:linear-gradient(145deg,#f2c14e,#c9922c);color:#1a1206;box-shadow:0 6px 18px rgba(242,193,78,.25)}
-.btn-gold:hover{transform:translateY(-1px)}
-.btn-ghost{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--txt)}
-.btn-ghost:hover{background:rgba(255,255,255,.1)}
-.btn-danger{background:rgba(255,77,94,.12);border:1px solid rgba(255,77,94,.3);color:#ff8a95}
-.login-wrap{min-height:calc(100vh - 66px);display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{width:100%;max-width:420px;padding:34px 28px;border-radius:22px;background:linear-gradient(180deg,#131c2c,#0c121d);border:1px solid rgba(255,255,255,.09);box-shadow:0 40px 90px rgba(0,0,0,.7);text-align:center}
-.login-ico{width:76px;height:76px;margin:0 auto 18px;border-radius:22px;display:grid;place-items:center;font-size:32px;background:linear-gradient(145deg,#f2c14e,#a8791a);animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.login-box h2{font-size:20px;font-weight:900;margin-bottom:6px}
-.login-box > p{font-size:12.5px;color:var(--muted);margin-bottom:22px;line-height:1.7}
-.field{margin-bottom:14px;text-align:right}
-.field label{display:block;font-size:12px;font-weight:700;color:#b9c4d6;margin-bottom:6px}
-.field input,.field select{width:100%;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--txt);font-size:13.5px;outline:none;transition:.2s}
-.field input:focus,.field select:focus{border-color:rgba(242,193,78,.55);background:rgba(242,193,78,.05)}
-.field select option{background:#131c2c}
-.pass-wrap{position:relative}
-.pass-wrap input{padding-left:44px}
-.eye-btn{position:absolute;left:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:15px;background:rgba(255,255,255,.05)}
-.wide{width:100%;justify-content:center;padding:13px;font-size:14px}
-.err-box{display:none;margin-top:12px;padding:11px 14px;border-radius:11px;background:rgba(255,77,94,.1);border:1px solid rgba(255,77,94,.35);color:#ff8a95;font-size:12.5px;font-weight:700;text-align:center}
-.err-box.show{display:block}
-.panel{max-width:1200px;margin:0 auto;padding:22px 18px 60px;display:none}
-.panel.show{display:block}
-.page-title{display:flex;align-items:center;gap:11px;margin-bottom:20px}
-.page-title::before{content:"";width:5px;height:26px;border-radius:5px;background:linear-gradient(180deg,#f2c14e,#a8791a)}
-.page-title h2{font-size:20px;font-weight:900}
-.page-title p{font-size:12.5px;color:var(--muted);margin-top:2px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:22px}
-.stat{padding:16px;border-radius:16px;background:linear-gradient(180deg,rgba(20,29,46,.9),rgba(14,21,33,.9));border:1px solid var(--line)}
-.stat .lbl{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;margin-bottom:6px}
-.stat .val{font-size:24px;font-weight:900;color:var(--gold)}
-.stat.green .val{color:#5be89a}
-.tabs{display:flex;gap:6px;padding:6px;border-radius:14px;background:rgba(255,255,255,.04);margin-bottom:20px}
-.tab{flex:1;padding:11px;border-radius:10px;font-size:13px;font-weight:700;color:var(--muted);transition:.2s}
-.tab.active{background:linear-gradient(145deg,#f2c14e,#c9922c);color:#1a1206}
-.tab-pane{display:none}
-.tab-pane.active{display:block}
-.card{padding:18px;border-radius:16px;margin-bottom:16px;background:linear-gradient(180deg,rgba(20,29,46,.6),rgba(14,21,33,.6));border:1px solid var(--line)}
-.card h3{font-size:14px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.add-box{display:flex;gap:10px;align-items:flex-end;padding:14px;border-radius:14px;background:rgba(242,193,78,.05);border:1px solid rgba(242,193,78,.18)}
-.add-box .field{flex:1;margin:0}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.list{display:flex;flex-direction:column;gap:8px;margin-top:14px;max-height:400px;overflow-y:auto;padding-left:4px}
-.item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid var(--line);transition:.2s}
-.item:hover{border-color:rgba(242,193,78,.3)}
+body{font-family:Cairo,system-ui,sans-serif;background:#06080e;color:#e9eef8;min-height:100vh;
+  background:radial-gradient(1000px 500px at 85% -10%,#1b2436,transparent 60%),
+             radial-gradient(800px 400px at -10% 110%,#241b06,transparent 55%),#06080e;
+  user-select:none;-webkit-user-select:none}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select{font-family:inherit}
+
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.lbox{width:100%;max-width:400px;background:#0c121d;border:1px solid rgba(255,255,255,.09);
+  border-radius:22px;padding:32px 26px;text-align:center;box-shadow:0 40px 90px rgba(0,0,0,.7)}
+.lico{width:80px;height:80px;margin:0 auto 16px;border-radius:22px;display:grid;place-items:center;
+  font-size:34px;background:linear-gradient(145deg,#f2c14e,#a8791a);box-shadow:0 16px 40px rgba(242,193,78,.4)}
+.lbox h2{font-size:20px;font-weight:900;margin-bottom:6px}
+.lbox>p{font-size:12.5px;color:#8695ac;margin-bottom:22px;line-height:1.7}
+.f{margin-bottom:14px;text-align:right}
+.f label{display:block;font-size:12px;font-weight:700;color:#b9c4d6;margin-bottom:6px}
+.f input{width:100%;padding:13px 14px;border-radius:12px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);color:#e9eef8;font-size:14px;outline:none;transition:.2s}
+.f input:focus{border-color:#f2c14e;background:rgba(242,193,78,.05)}
+#loginBtn{width:100%;padding:14px;border-radius:12px;font-size:15px;font-weight:800;
+  background:linear-gradient(145deg,#f2c14e,#c9922c);color:#1a1206;margin-top:6px;
+  box-shadow:0 8px 22px rgba(242,193,78,.3);transition:.2s}
+#loginBtn:active{transform:scale(.98)}
+#errMsg{display:none;margin-top:14px;padding:12px;border-radius:11px;background:rgba(255,77,94,.15);
+  border:1px solid rgba(255,77,94,.4);color:#ff8a95;font-size:12.5px;font-weight:700;line-height:1.6;text-align:right}
+
+#panel{display:none;padding:20px;max-width:1100px;margin:0 auto}
+.phead{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;
+  padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.07)}
+.phead h2{font-size:19px;font-weight:900}
+.logout{padding:9px 16px;border-radius:10px;background:rgba(255,77,94,.15);color:#ff8a95;
+  font-size:13px;font-weight:700;border:1px solid rgba(255,77,94,.3)}
+.card{background:rgba(20,29,46,.6);border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:18px;margin-bottom:14px}
+.card h3{font-size:15px;font-weight:800;margin-bottom:14px}
+.inrow{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.inrow .f{flex:1;min-width:170px;margin:0}
+.btn-gold{padding:12px 20px;border-radius:11px;background:linear-gradient(145deg,#f2c14e,#c9922c);
+  color:#1a1206;font-weight:800;font-size:13px}
+.btn-ghost{padding:12px 20px;border-radius:11px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);color:#e9eef8;font-weight:700;font-size:13px}
+.list{margin-top:14px;display:flex;flex-direction:column;gap:8px;max-height:400px;overflow-y:auto}
+.item{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:10px}
 .item .info{flex:1;min-width:0}
-.item .info b{display:block;font-size:13.5px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.item .info small{display:block;font-size:10.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right;margin-top:2px}
-.item .logo{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;overflow:hidden;background:linear-gradient(145deg,#1d2739,#131a28);border:1px solid var(--line);font-size:11px;font-weight:800;color:var(--gold)}
-.item .logo img{width:100%;height:100%;object-fit:contain;padding:4px}
-.item .tag{font-size:10px;font-weight:800;padding:4px 9px;border-radius:20px;background:rgba(41,182,246,.15);color:#7fd4ff;white-space:nowrap}
-.item .actions{display:flex;gap:6px;flex-shrink:0}
-.icon-btn{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:14px;transition:.2s}
-.icon-edit{background:rgba(41,182,246,.12);color:#7fd4ff}
-.icon-del{background:rgba(255,77,94,.12);color:#ff8a95}
-.empty-txt{text-align:center;padding:20px;font-size:12.5px;color:var(--muted)}
-.sep{height:1px;background:var(--line);margin:18px 0}
-.modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(2,4,8,.82);backdrop-filter:blur(8px)}
-.modal.open{display:flex}
-.modal-box{width:100%;max-width:560px;max-height:88vh;overflow-y:auto;background:linear-gradient(180deg,#131c2c,#0c121d);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:24px;box-shadow:0 40px 90px rgba(0,0,0,.8)}
-.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.modal-head h3{font-size:16px;font-weight:800}
-.close-x{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.05);font-size:16px}
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);padding:12px 22px;border-radius:12px;font-size:13px;font-weight:700;background:linear-gradient(145deg,#1a2436,#111a28);border:1px solid rgba(242,193,78,.4);box-shadow:0 14px 40px rgba(0,0,0,.6);z-index:500;transition:.35s;opacity:0;pointer-events:none}
+.item .info b{display:block;font-size:13.5px;font-weight:700}
+.item .info small{display:block;font-size:10.5px;color:#8695ac;direction:ltr;
+  text-align:right;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.del{padding:8px 12px;border-radius:9px;background:rgba(255,77,94,.15);color:#ff8a95;
+  font-size:12px;font-weight:700;flex-shrink:0}
+.empty{text-align:center;padding:20px;font-size:12.5px;color:#8695ac}
+select{width:100%;padding:13px 14px;border-radius:12px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);color:#e9eef8;font-size:14px;outline:none}
+select option{background:#131c2c}
+.ver{position:fixed;bottom:6px;left:6px;font-size:11px;color:#f2c14e;z-index:999;
+  background:rgba(0,0,0,.5);padding:3px 8px;border-radius:6px;font-weight:800}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);
+  padding:12px 22px;border-radius:12px;background:#1a2436;border:1px solid #f2c14e;
+  color:#e9eef8;font-size:13px;font-weight:700;z-index:500;transition:.35s;
+  opacity:0;pointer-events:none;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-.sync-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:20px;font-size:10.5px;font-weight:800;background:rgba(40,199,111,.15);color:#5be89a;border:1px solid rgba(40,199,111,.3)}
-.sync-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#28c76f;box-shadow:0 0 8px #28c76f;animation:pulse 1.5s infinite}
-@keyframes pulse{50%{opacity:.4}}
-@media(max-width:700px){.row2{grid-template-columns:1fr}.add-box{flex-direction:column;align-items:stretch}.brand span{display:none}.tab{font-size:11.5px;padding:9px 6px}.item .tag{display:none}}
 </style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">
-    <div class="brand-mark">⚙️</div>
-    <div><h1>لوحة التحكم</h1><span>AL ANKABOOT SPORT</span></div>
-  </div>
-  <div class="spacer"></div>
-  <span class="sync-badge">مزامنة حية</span>
-  <a class="btn btn-ghost" href="index.html">👁️ عرض الموقع</a>
-  <button class="btn btn-danger" id="logoutBtn" style="display:none">خروج</button>
-</header>
-
-<div class="login-wrap" id="loginWrap">
-  <div class="login-box">
-    <div class="login-ico">🔐</div>
+<div id="loginScreen">
+  <div class="lbox">
+    <div class="lico">🔐</div>
     <h2>لوحة تحكم الأدمن</h2>
-    <p>هذه الصفحة مخصصة لمدير الموقع فقط.</p>
-    <div class="field">
+    <p>هذه الصفحة مخصصة لمدير الموقع فقط</p>
+    <div class="f">
       <label>اسم المستخدم</label>
-      <input type="text" id="userInput" placeholder="اسم المستخدم" autocomplete="off" />
+      <input type="text" id="uInput" placeholder="FF" autocomplete="off" autocapitalize="off" spellcheck="false">
     </div>
-    <div class="field">
+    <div class="f">
       <label>كلمة المرور</label>
-      <div class="pass-wrap">
-        <input type="password" id="passInput" placeholder="••••••••" autocomplete="off" />
-        <button class="eye-btn" id="eyeBtn" type="button">👁️</button>
-      </div>
+      <input type="password" id="pInput" placeholder="FFFF" autocomplete="off">
     </div>
-    <button class="btn btn-gold wide" id="loginBtn" type="button">🔓 دخول</button>
-    <div class="err-box" id="errBox"></div>
+    <button type="button" id="loginBtn" onclick="window.__doLogin()">🔓 دخول</button>
+    <div id="errMsg"></div>
   </div>
 </div>
 
-<div class="panel" id="panel">
-  <div class="page-title"><div><h2>إدارة الموقع</h2><p>كل تغيير يظهر فوراً للمستخدم.</p></div></div>
-  <div class="stats">
-    <div class="stat"><div class="lbl">📁 الأقسام</div><div class="val" id="statCats">0</div></div>
-    <div class="stat green"><div class="lbl">📺 القنوات</div><div class="val" id="statChans">0</div></div>
-  </div>
-  <div class="tabs">
-    <button class="tab active" data-tab="tabCats" type="button">📁 الأقسام</button>
-    <button class="tab" data-tab="tabChans" type="button">📺 القنوات</button>
-    <button class="tab" data-tab="tabSet" type="button">⚙️ الإعدادات</button>
+<div id="panel">
+  <div class="phead">
+    <h2>⚙️ إدارة الموقع</h2>
+    <button type="button" class="logout" onclick="window.__logout()">خروج</button>
   </div>
 
-  <div class="tab-pane active" id="tabCats">
-    <div class="card">
-      <h3>➕ إضافة قسم جديد</h3>
-      <div class="add-box">
-        <div class="field"><label>اسم القسم</label><input type="text" id="catNameInput" placeholder="مثال: beIN SPORTS" /></div>
-        <div class="field"><label>صورة/لوجو (اختياري)</label><input type="text" id="catLogoInput" placeholder="https://..." style="direction:ltr;text-align:left" /></div>
-        <button class="btn btn-gold" id="addCatBtn" type="button" style="padding:11px 20px">إضافة</button>
-      </div>
+  <div class="card">
+    <h3>📁 الأقسام</h3>
+    <div class="inrow">
+      <div class="f"><label>اسم القسم</label><input type="text" id="catName" placeholder="مثال: beIN SPORTS"></div>
+      <div class="f"><label>لوجو (اختياري)</label><input type="text" id="catLogo" placeholder="https://..." style="direction:ltr;text-align:left"></div>
+      <button type="button" class="btn-gold" onclick="window.__addCat()">➕ إضافة</button>
     </div>
-    <div class="card"><h3>📁 كل الأقسام</h3><div class="list" id="catsList"></div></div>
+    <div class="list" id="catsList"></div>
   </div>
 
-  <div class="tab-pane" id="tabChans">
-    <div class="card">
-      <h3>➕ إضافة قناة جديدة</h3>
-      <div class="field"><label>القسم التابع له</label><select id="chanCatSelect"></select></div>
-      <div class="row2">
-        <div class="field"><label>اسم القناة</label><input type="text" id="chanNameInput" placeholder="مثال: beIN SPORTS 1" /></div>
-        <div class="field"><label>لوجو القناة (اختياري)</label><input type="text" id="chanLogoInput" placeholder="https://..." style="direction:ltr;text-align:left" /></div>
-      </div>
-      <div class="field"><label>رابط البث (m3u8 أو iframe)</label><input type="text" id="chanUrlInput" placeholder="https://example.com/stream.m3u8" style="direction:ltr;text-align:left" /></div>
-      <button class="btn btn-gold wide" id="addChanBtn" type="button">➕ إضافة القناة</button>
+  <div class="card">
+    <h3>📺 القنوات</h3>
+    <div class="f"><label>القسم</label><select id="chCat"></select></div>
+    <div class="inrow">
+      <div class="f"><label>اسم القناة</label><input type="text" id="chName" placeholder="beIN 1"></div>
+      <div class="f"><label>لوجو (اختياري)</label><input type="text" id="chLogo" placeholder="https://..." style="direction:ltr;text-align:left"></div>
     </div>
-    <div class="card"><h3>📺 كل القنوات</h3><div class="list" id="chansList"></div></div>
+    <div class="f" style="margin-top:10px"><label>رابط البث (m3u8 / iframe)</label>
+      <input type="text" id="chUrl" placeholder="https://..." style="direction:ltr;text-align:left"></div>
+    <button type="button" class="btn-gold" style="width:100%;margin-top:8px" onclick="window.__addChan()">➕ إضافة القناة</button>
+    <div class="list" id="chansList"></div>
   </div>
 
-  <div class="tab-pane" id="tabSet">
-    <div class="card">
-      <h3>🔗 قناة التيليجرام</h3>
-      <div class="field"><label>رابط القناة</label><input type="text" id="setTgUrl" style="direction:ltr;text-align:left" /></div>
-      <div class="field"><label>اسم / وصف القناة</label><input type="text" id="setTgLabel" /></div>
-      <button class="btn btn-gold wide" id="saveTgBtn" type="button">💾 حفظ الإعدادات</button>
-    </div>
-    <div class="card">
-      <h3>🔑 بيانات الدخول</h3>
-      <div class="row2">
-        <div class="field"><label>اسم المستخدم الجديد</label><input type="text" id="setNewUser" placeholder="FF" /></div>
-        <div class="field"><label>كلمة المرور الجديدة</label><input type="text" id="setNewPass" placeholder="FFFF" /></div>
-      </div>
-      <button class="btn btn-ghost wide" id="changeCredsBtn" type="button">🔑 تحديث بيانات الدخول</button>
-    </div>
-    <div class="card">
-      <h3>💾 النسخ الاحتياطي</h3>
-      <div class="row2">
-        <button class="btn btn-ghost" id="exportBtn" type="button" style="justify-content:center;padding:12px">⬇️ تصدير</button>
-        <button class="btn btn-ghost" id="importBtn" type="button" style="justify-content:center;padding:12px">⬆️ استيراد</button>
-      </div>
-      <input type="file" id="importFile" accept=".json" style="display:none" />
-      <div class="sep"></div>
-      <button class="btn btn-danger wide" id="resetBtn" type="button">🗑️ حذف جميع البيانات</button>
-    </div>
+  <div class="card">
+    <h3>🔗 تيليجرام</h3>
+    <div class="f"><label>الرابط</label><input type="text" id="tgUrl" style="direction:ltr;text-align:left"></div>
+    <button type="button" class="btn-gold" style="width:100%" onclick="window.__saveTg()">💾 حفظ</button>
   </div>
-</div>
 
-<div class="modal" id="editModal">
-  <div class="modal-box">
-    <div class="modal-head"><h3>✏️ تعديل القناة</h3><button class="close-x" data-close="editModal" type="button">✕</button></div>
-    <input type="hidden" id="editChanId" />
-    <div class="field"><label>القسم</label><select id="editChanCat"></select></div>
-    <div class="row2">
-      <div class="field"><label>اسم القناة</label><input type="text" id="editChanName" /></div>
-      <div class="field"><label>لوجو القناة</label><input type="text" id="editChanLogo" style="direction:ltr;text-align:left" /></div>
-    </div>
-    <div class="field"><label>رابط البث</label><input type="text" id="editChanUrl" style="direction:ltr;text-align:left" /></div>
-    <button class="btn btn-gold wide" id="saveEditBtn" type="button">💾 حفظ التعديلات</button>
+  <div class="card">
+    <h3>💾 نسخ / حذف</h3>
+    <button type="button" class="btn-ghost" style="width:100%;margin-bottom:8px" onclick="window.__exportData()">⬇️ تصدير نسخة</button>
+    <button type="button" class="btn-ghost" style="width:100%;margin-bottom:8px" onclick="document.getElementById('impFile').click()">⬆️ استيراد نسخة</button>
+    <input type="file" id="impFile" accept=".json" style="display:none">
+    <button type="button" class="btn-ghost" style="width:100%;color:#ff8a95;border-color:rgba(255,77,94,.3)" onclick="window.__resetAll()">🗑️ حذف كل البيانات</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
+<div class="ver">v3.0</div>
 
 <script>
-const STORE_KEY   = 'ankaboot_iptv_data';
-const SESSION_KEY = 'ankaboot_admin_session';
-const SYNC_CH     = 'ankaboot_sync_channel';
-const MASTER_USER = 'FF';
-const MASTER_PASS = 'FFFF';
+(function(){
+  'use strict';
 
-const DEFAULT_STATE = {
-  telegram:'https://t.me/alankabootsport', tgLabel:'AL ANKABOOT SPORT',
-  username:MASTER_USER, password:MASTER_PASS, categories:[]
-};
+  var STORE_KEY = 'ankaboot_iptv_data';
+  var SESSION   = 'ankaboot_admin_session';
+  var USER = 'FF';
+  var PASS = 'FFFF';
 
-let state = loadState();
-let editingChanId = null;
+  var state = null;
 
-let syncCh = null;
-try{ syncCh = new BroadcastChannel(SYNC_CH); }catch(e){}
-function broadcastUpdate(){ try{ syncCh && syncCh.postMessage({type:'update',at:Date.now()}); }catch(e){} }
+  function $(id){ return document.getElementById(id); }
 
-const $  = (s,p=document) => p.querySelector(s);
-const $$ = (s,p=document) => [...p.querySelectorAll(s)];
-const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
-const clone = o => JSON.parse(JSON.stringify(o));
-const esc = s => String(s??'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const initials = n => (n||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
-
-function loadState(){
-  try{
-    const raw = localStorage.getItem(STORE_KEY);
-    if(!raw) return clone(DEFAULT_STATE);
-    const d = JSON.parse(raw);
-    const b = clone(DEFAULT_STATE);
-    return {
-      telegram: d.telegram || b.telegram,
-      tgLabel : d.tgLabel  || b.tgLabel,
-      username: d.username || MASTER_USER,
-      password: d.password || MASTER_PASS,
-      categories: Array.isArray(d.categories) ? d.categories : []
-    };
-  }catch(e){ return clone(DEFAULT_STATE); }
-}
-function saveState(){
-  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); broadcastUpdate(); }
-  catch(e){ toast('تعذر الحفظ'); }
-}
-let toastTimer;
-function toast(msg){
-  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
-}
-function showError(msg){
-  const box = $('#errBox');
-  box.textContent = '❌ ' + msg;
-  box.classList.remove('show'); void box.offsetWidth; box.classList.add('show');
-}
-
-/* ===== تسجيل الدخول ===== */
-$('#eyeBtn').addEventListener('click', () => {
-  const inp = $('#passInput');
-  inp.type = inp.type === 'password' ? 'text' : 'password';
-  $('#eyeBtn').textContent = inp.type === 'password' ? '👁️' : '🙈';
-});
-
-function doLogin(){
-  const u = $('#userInput').value.trim();
-  const p = $('#passInput').value;
-  // Master login دايماً شغال
-  const masterOk = (u === MASTER_USER && p === MASTER_PASS);
-  const stateOk  = (u === state.username && p === state.password);
-  if(masterOk || stateOk){
-    try{ sessionStorage.setItem(SESSION_KEY, '1'); }catch(e){}
-    showPanel();
-    toast('مرحباً بك 👋');
-  }else{
-    showError('اسم المستخدم أو كلمة المرور غير صحيحة');
-  }
-}
-$('#loginBtn').addEventListener('click', doLogin);
-$('#passInput').addEventListener('keydown', e => { if(e.key === 'Enter') doLogin(); });
-$('#userInput').addEventListener('keydown', e => { if(e.key === 'Enter') $('#passInput').focus(); });
-
-function showPanel(){
-  $('#loginWrap').style.display = 'none';
-  $('#panel').classList.add('show');
-  $('#logoutBtn').style.display = 'inline-flex';
-  renderAll();
-}
-$('#logoutBtn').addEventListener('click', () => {
-  try{ sessionStorage.removeItem(SESSION_KEY); }catch(e){}
-  location.reload();
-});
-try{ if(sessionStorage.getItem(SESSION_KEY) === '1') showPanel(); }catch(e){}
-
-/* ===== تبويبات ===== */
-$$('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    $$('.tab').forEach(t => t.classList.remove('active'));
-    $$('.tab-pane').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    $('#' + tab.dataset.tab).classList.add('active');
-  });
-});
-
-/* ===== عرض ===== */
-function renderAll(){ renderStats(); renderCats(); renderChans(); renderChanCatSelects(); renderSettings(); }
-function renderStats(){
-  $('#statCats').textContent = state.categories.length;
-  $('#statChans').textContent = state.categories.reduce((n,c) => n + (c.channels||[]).length, 0);
-}
-function renderCats(){
-  const wrap = $('#catsList');
-  if(!state.categories.length){ wrap.innerHTML = '<div class="empty-txt">📭 لا توجد أقسام بعد</div>'; return; }
-  wrap.innerHTML = state.categories.map(c => `
-    <div class="item">
-      <div class="logo">${c.logo ? `<img src="${esc(c.logo)}" onerror="this.style.display='none';this.parentNode.textContent='${esc(initials(c.name))}'">` : esc(initials(c.name))}</div>
-      <div class="info"><b>${esc(c.name)}</b><small>${(c.channels||[]).length} قناة</small></div>
-      <div class="actions"><button class="icon-btn icon-del" data-delcat="${c.id}" type="button">🗑️</button></div>
-    </div>`).join('');
-}
-function renderChans(){
-  const wrap = $('#chansList');
-  let rows = '';
-  state.categories.forEach(cat => {
-    (cat.channels||[]).forEach(ch => {
-      rows += `<div class="item">
-        <div class="logo">${ch.logo ? `<img src="${esc(ch.logo)}" onerror="this.style.display='none';this.parentNode.textContent='${esc(initials(ch.name))}'">` : esc(initials(ch.name))}</div>
-        <div class="info"><b>${esc(ch.name)}</b><small>${esc(ch.url)}</small></div>
-        <span class="tag">${esc(cat.name)}</span>
-        <div class="actions">
-          <button class="icon-btn icon-edit" data-editchan="${cat.id}|${ch.id}" type="button">✏️</button>
-          <button class="icon-btn icon-del" data-delchan="${cat.id}|${ch.id}" type="button">🗑️</button>
-        </div></div>`;
-    });
-  });
-  wrap.innerHTML = rows || '<div class="empty-txt">📭 لا توجد قنوات بعد</div>';
-}
-function renderChanCatSelects(){
-  const opts = state.categories.length
-    ? state.categories.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('')
-    : '<option value="">— لا توجد أقسام —</option>';
-  $('#chanCatSelect').innerHTML = opts;
-  $('#editChanCat').innerHTML = opts;
-}
-function renderSettings(){ $('#setTgUrl').value = state.telegram; $('#setTgLabel').value = state.tgLabel; }
-
-/* ===== أقسام ===== */
-$('#addCatBtn').addEventListener('click', () => {
-  const name = $('#catNameInput').value.trim();
-  const logo = $('#catLogoInput').value.trim();
-  if(!name) return toast('اكتب اسم القسم');
-  if(state.categories.some(c => c.name.toLowerCase() === name.toLowerCase())) return toast('هذا القسم موجود');
-  state.categories.push({ id: uid(), name, logo, channels: [] });
-  saveState(); $('#catNameInput').value = ''; $('#catLogoInput').value = ''; renderAll();
-  toast('تم إضافة القسم ✅');
-});
-$('#catsList').addEventListener('click', e => {
-  const btn = e.target.closest('[data-delcat]'); if(!btn) return;
-  const cat = state.categories.find(c => c.id === btn.dataset.delcat); if(!cat) return;
-  if(!confirm(`حذف القسم "${cat.name}" وكل قنواته؟`)) return;
-  state.categories = state.categories.filter(c => c.id !== cat.id);
-  saveState(); renderAll(); toast('تم حذف القسم 🗑️');
-});
-
-/* ===== قنوات ===== */
-$('#addChanBtn').addEventListener('click', () => {
-  const catId = $('#chanCatSelect').value;
-  const name  = $('#chanNameInput').value.trim();
-  const url   = $('#chanUrlInput').value.trim();
-  const logo  = $('#chanLogoInput').value.trim();
-  if(!catId) return toast('أضف قسماً أولاً');
-  if(!name)  return toast('اكتب اسم القناة');
-  if(!url)   return toast('اكتب رابط البث');
-  const cat = state.categories.find(c => c.id === catId); if(!cat) return;
-  cat.channels = cat.channels || [];
-  cat.channels.push({ id: uid(), name, url, logo });
-  saveState();
-  $('#chanNameInput').value = ''; $('#chanUrlInput').value = ''; $('#chanLogoInput').value = '';
-  renderAll(); toast('تم إضافة القناة ✅');
-});
-$('#chansList').addEventListener('click', e => {
-  const delBtn  = e.target.closest('[data-delchan]');
-  const editBtn = e.target.closest('[data-editchan]');
-  if(delBtn){
-    const [catId, chanId] = delBtn.dataset.delchan.split('|');
-    const cat = state.categories.find(c => c.id === catId); if(!cat) return;
-    if(!confirm('حذف هذه القناة؟')) return;
-    cat.channels = (cat.channels||[]).filter(c => c.id !== chanId);
-    saveState(); renderAll(); toast('تم حذف القناة 🗑️');
-  }
-  if(editBtn){
-    const [catId, chanId] = editBtn.dataset.editchan.split('|');
-    const cat = state.categories.find(c => c.id === catId); if(!cat) return;
-    const ch = (cat.channels||[]).find(c => c.id === chanId); if(!ch) return;
-    editingChanId = chanId;
-    $('#editChanId').value   = chanId;
-    $('#editChanCat').value  = catId;
-    $('#editChanName').value = ch.name;
-    $('#editChanUrl').value  = ch.url;
-    $('#editChanLogo').value = ch.logo || '';
-    $('#editModal').classList.add('open');
-  }
-});
-$('#saveEditBtn').addEventListener('click', () => {
-  const chanId   = $('#editChanId').value;
-  const newCatId = $('#editChanCat').value;
-  const name     = $('#editChanName').value.trim();
-  const url      = $('#editChanUrl').value.trim();
-  const logo     = $('#editChanLogo').value.trim();
-  if(!name || !url) return toast('اكمل البيانات');
-  state.categories.forEach(cat => { cat.channels = (cat.channels||[]).filter(c => c.id !== chanId); });
-  const targetCat = state.categories.find(c => c.id === newCatId); if(!targetCat) return;
-  targetCat.channels = targetCat.channels || [];
-  targetCat.channels.push({ id: chanId, name, url, logo });
-  saveState(); $('#editModal').classList.remove('open'); renderAll(); toast('تم حفظ التعديلات ✅');
-});
-$$('[data-close]').forEach(b => b.addEventListener('click', () => $('#' + b.dataset.close).classList.remove('open')));
-$$('.modal').forEach(m => m.addEventListener('click', e => { if(e.target === m) m.classList.remove('open'); }));
-
-/* ===== إعدادات ===== */
-$('#saveTgBtn').addEventListener('click', () => {
-  const url = $('#setTgUrl').value.trim();
-  const lbl = $('#setTgLabel').value.trim() || 'AL ANKABOOT SPORT';
-  if(!url) return toast('اكتب رابط القناة');
-  state.telegram = url; state.tgLabel = lbl; saveState(); toast('تم الحفظ ✅');
-});
-$('#changeCredsBtn').addEventListener('click', () => {
-  const u = $('#setNewUser').value.trim();
-  const p = $('#setNewPass').value.trim();
-  if(!u || !p) return toast('اكتب اسم مستخدم وكلمة مرور');
-  state.username = u; state.password = p; saveState();
-  $('#setNewUser').value = ''; $('#setNewPass').value = '';
-  toast('تم تحديث بيانات الدخول 🔑');
-});
-$('#exportBtn').addEventListener('click', () => {
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'ankaboot-backup-' + new Date().toISOString().slice(0,10) + '.json';
-  a.click(); URL.revokeObjectURL(a.href); toast('تم التصدير ⬇️');
-});
-$('#importBtn').addEventListener('click', () => $('#importFile').click());
-$('#importFile').addEventListener('change', e => {
-  const file = e.target.files[0]; if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
+  function loadState(){
     try{
-      const d = JSON.parse(ev.target.result);
-      if(!d.categories) throw new Error();
-      state.categories = d.categories;
-      if(d.telegram) state.telegram = d.telegram;
-      if(d.tgLabel)  state.tgLabel  = d.tgLabel;
-      if(d.username) state.username = d.username;
-      if(d.password) state.password = d.password;
-      saveState(); renderAll(); toast('تم الاستيراد ✅');
-    }catch(err){ toast('ملف غير صالح ❌'); }
-  };
-  reader.readAsText(file); e.target.value = '';
-});
-$('#resetBtn').addEventListener('click', () => {
-  if(!confirm('سيتم حذف جميع البيانات. متابعة؟')) return;
-  localStorage.removeItem(STORE_KEY); state = clone(DEFAULT_STATE); saveState(); renderAll();
-  toast('تم الحذف 🗑️');
-});
+      var raw = localStorage.getItem(STORE_KEY);
+      if(!raw) return { telegram:'https://t.me/alankabootsport', categories:[] };
+      var d = JSON.parse(raw);
+      return {
+        telegram: d.telegram || 'https://t.me/alankabootsport',
+        categories: Array.isArray(d.categories) ? d.categories : []
+      };
+    }catch(e){
+      return { telegram:'https://t.me/alankabootsport', categories:[] };
+    }
+  }
 
-/* ===== حماية ===== */
-document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
-document.addEventListener('keydown', e => {
-  const k = e.key;
-  if(k === 'F12'){ e.preventDefault(); return false; }
-  if(e.ctrlKey && e.shiftKey && ['I','J','C','K','i','j','c','k'].includes(k)){ e.preventDefault(); return false; }
-  if(e.ctrlKey && ['u','U','s','S','p','P','a','A'].includes(k)){ e.preventDefault(); return false; }
-}, true);
-document.addEventListener('dragstart', e => e.preventDefault());
+  function saveState(){
+    try{
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+      try{ var bc = new BroadcastChannel('ankaboot_sync'); bc.postMessage({t:Date.now()}); bc.close(); }catch(e){}
+    }catch(e){ toast('تعذر الحفظ'); }
+  }
+
+  var tt;
+  function toast(msg){
+    var t = $('toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(tt); tt = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+  }
+
+  function esc(s){ return String(s||'').replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+  function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+  // ===== Login =====
+  window.__doLogin = function(){
+    var u = ($('uInput').value || '').trim();
+    var p = $('pInput').value || '';
+    var err = $('errMsg');
+
+    if(u === USER && p === PASS){
+      try{ sessionStorage.setItem(SESSION, '1'); }catch(e){}
+      showPanel();
+    } else {
+      err.innerHTML = '❌ البيانات غلط<br>'
+        + 'دخلت يوزر: <b>' + esc(u || '(فاضي)') + '</b><br>'
+        + 'طول الباس: <b>' + p.length + '</b> حرف<br>'
+        + 'المطلوب: <b>FF</b> / <b>FFFF</b>';
+      err.style.display = 'block';
+    }
+  };
+
+  window.__logout = function(){
+    try{ sessionStorage.removeItem(SESSION); }catch(e){}
+    location.reload();
+  };
+
+  function showPanel(){
+    $('loginScreen').style.display = 'none';
+    $('panel').style.display = 'block';
+    state = loadState();
+    renderAll();
+  }
+
+  // ===== Render =====
+  function renderAll(){
+    renderCats();
+    renderChans();
+    renderSelects();
+    $('tgUrl').value = state.telegram || '';
+  }
+
+  function renderCats(){
+    var w = $('catsList');
+    if(!state.categories.length){
+      w.innerHTML = '<div class="empty">📭 لا توجد أقسام بعد</div>';
+      return;
+    }
+    w.innerHTML = state.categories.map(function(c){
+      return '<div class="item">'
+        + '<div class="info"><b>' + esc(c.name) + '</b><small>' + (c.channels||[]).length + ' قناة</small></div>'
+        + '<button type="button" class="del" onclick="window.__delCat(\'' + c.id + '\')">🗑️ حذف</button>'
+      + '</div>';
+    }).join('');
+  }
+
+  function renderChans(){
+    var w = $('chansList');
+    var html = '';
+    state.categories.forEach(function(cat){
+      (cat.channels||[]).forEach(function(ch){
+        html += '<div class="item">'
+          + '<div class="info"><b>' + esc(ch.name) + '</b><small>' + esc(ch.url) + '</small></div>'
+          + '<button type="button" class="del" onclick="window.__delChan(\'' + cat.id + '\',\'' + ch.id + '\')">🗑️</button>'
+        + '</div>';
+      });
+    });
+    w.innerHTML = html || '<div class="empty">📭 لا توجد قنوات بعد</div>';
+  }
+
+  function renderSelects(){
+    var sel = $('chCat');
+    if(!state.categories.length){
+      sel.innerHTML = '<option value="">— لا توجد أقسام —</option>';
+      return;
+    }
+    sel.innerHTML = state.categories.map(function(c){
+      return '<option value="' + c.id + '">' + esc(c.name) + '</option>';
+    }).join('');
+  }
+
+  // ===== Actions =====
+  window.__addCat = function(){
+    var name = $('catName').value.trim();
+    var logo = $('catLogo').value.trim();
+    if(!name) return toast('اكتب اسم القسم');
+    state.categories.push({ id: uid(), name: name, logo: logo, channels: [] });
+    saveState();
+    $('catName').value = ''; $('catLogo').value = '';
+    renderAll();
+    toast('تم إضافة القسم ✅');
+  };
+
+  window.__delCat = function(id){
+    var cat = state.categories.find(function(c){ return c.id === id; });
+    if(!cat) return;
+    if(!confirm('حذف القسم "' + cat.name + '" وكل قنواته؟')) return;
+    state.categories = state.categories.filter(function(c){ return c.id !== id; });
+    saveState(); renderAll(); toast('تم الحذف 🗑️');
+  };
+
+  window.__addChan = function(){
+    var catId = $('chCat').value;
+    var name = $('chName').value.trim();
+    var url = $('chUrl').value.trim();
+    var logo = $('chLogo').value.trim();
+    if(!catId) return toast('أضف قسماً أولاً');
+    if(!name) return toast('اكتب اسم القناة');
+    if(!url) return toast('اكتب رابط البث');
+    var cat = state.categories.find(function(c){ return c.id === catId; });
+    if(!cat) return;
+    cat.channels = cat.channels || [];
+    cat.channels.push({ id: uid(), name: name, url: url, logo: logo });
+    saveState();
+    $('chName').value = ''; $('chUrl').value = ''; $('chLogo').value = '';
+    renderAll(); toast('تم إضافة القناة ✅');
+  };
+
+  window.__delChan = function(catId, chId){
+    if(!confirm('حذف هذه القناة؟')) return;
+    var cat = state.categories.find(function(c){ return c.id === catId; });
+    if(!cat) return;
+    cat.channels = (cat.channels||[]).filter(function(c){ return c.id !== chId; });
+    saveState(); renderAll(); toast('تم الحذف 🗑️');
+  };
+
+  window.__saveTg = function(){
+    var url = $('tgUrl').value.trim();
+    if(!url) return toast('اكتب الرابط');
+    state.telegram = url;
+    saveState(); toast('تم الحفظ ✅');
+  };
+
+  window.__exportData = function(){
+    var blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'ankaboot-backup.json';
+    a.click();
+    toast('تم التصدير ⬇️');
+  };
+
+  $('impFile').onchange = function(e){
+    var f = e.target.files[0]; if(!f) return;
+    var r = new FileReader();
+    r.onload = function(ev){
+      try{
+        var d = JSON.parse(ev.target.result);
+        if(!d.categories) throw 0;
+        state = d;
+        saveState(); renderAll(); toast('تم الاستيراد ✅');
+      }catch(err){ toast('ملف غير صالح ❌'); }
+    };
+    r.readAsText(f);
+    e.target.value = '';
+  };
+
+  window.__resetAll = function(){
+    if(!confirm('حذف كل البيانات؟')) return;
+    state = { telegram:'https://t.me/alankabootsport', categories:[] };
+    saveState(); renderAll(); toast('تم الحذف 🗑️');
+  };
+
+  // ===== Auto-login =====
+  try{
+    if(sessionStorage.getItem(SESSION) === '1') showPanel();
+  }catch(e){}
+
+  // ===== Protection =====
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'F12'){ e.preventDefault(); return false; }
+    if(e.ctrlKey && e.shiftKey && 'IJCK'.indexOf(e.key) >= 0){ e.preventDefault(); return false; }
+    if(e.ctrlKey && 'uUsSpPaA'.indexOf(e.key) >= 0){ e.preventDefault(); return false; }
+  }, true);
+
+})();
 </script>
 </body>
 </html>
