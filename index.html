@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>لوحة التحكم | AL ANKABOOT SPORT</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#f2c14e;--gold-d:#a8791a;--bg:#06080e;--panel:#0e1521;
+  --line:rgba(255,255,255,.07);--txt:#e9eef8;--muted:#8695ac;
+  --danger:#ff4d5e;--ok:#28c76f;--r:14px;
+}
+body{
+  font-family:'Cairo',system-ui,sans-serif;background:var(--bg);color:var(--txt);
+  min-height:100vh;
+  background:
+    radial-gradient(1000px 500px at 85% -10%, #1b2436 0%, transparent 60%),
+    radial-gradient(800px 400px at -10% 110%, #241b06 0%, transparent 55%),
+    var(--bg);
+}
+button,input,select{font-family:inherit}
+button{cursor:pointer;border:0;background:none;color:inherit}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:rgba(242,193,78,.5)}
+
+/* ===== الهيدر ===== */
+.topbar{
+  height:66px;display:flex;align-items:center;gap:12px;padding:0 20px;
+  border-bottom:1px solid var(--line);background:rgba(8,12,20,.85);
+  backdrop-filter:blur(14px);position:sticky;top:0;z-index:50;
+}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-mark{
+  width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
+  font-size:20px;background:linear-gradient(145deg,#f2c14e,#a8791a);
+  box-shadow:0 6px 18px rgba(242,193,78,.28);
+}
+.brand h1{
+  font-size:17px;font-weight:900;letter-spacing:1px;
+  background:linear-gradient(90deg,#fff,#f2c14e);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.brand span{font-size:10px;color:var(--muted);letter-spacing:2.5px;font-weight:600}
+.spacer{flex:1}
+.status{
+  display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:20px;
+  background:rgba(40,199,111,.1);border:1px solid rgba(40,199,111,.3);
+  font-size:11.5px;font-weight:700;color:#5be89a;
+}
+.status .dot{
+  width:7px;height:7px;border-radius:50%;background:#28c76f;
+  box-shadow:0 0 10px #28c76f;animation:pulse 1.6s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:11px;
+  font-size:13px;font-weight:700;transition:.2s;
+}
+.btn-gold{background:linear-gradient(145deg,#f2c14e,#c9922c);color:#1a1206;
+  box-shadow:0 6px 18px rgba(242,193,78,.25)}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 9px 24px rgba(242,193,78,.4)}
+.btn-ghost{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--txt)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(242,193,78,.4)}
+.btn-danger{background:rgba(255,77,94,.12);border:1px solid rgba(255,77,94,.3);color:#ff8a95}
+.btn-danger:hover{background:rgba(255,77,94,.22)}
+
+/* ===== تسجيل الدخول ===== */
+.login-wrap{
+  min-height:calc(100vh - 66px);display:flex;align-items:center;
+  justify-content:center;padding:20px;
+}
+.login-box{
+  width:100%;max-width:420px;padding:32px 28px;border-radius:22px;
+  background:linear-gradient(180deg,#131c2c,#0c121d);
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 40px 90px rgba(0,0,0,.7);text-align:center;
+}
+.login-ico{
+  width:76px;height:76px;margin:0 auto 18px;border-radius:22px;
+  display:grid;place-items:center;font-size:32px;
+  background:linear-gradient(145deg,#f2c14e,#a8791a);
+  box-shadow:0 16px 40px rgba(242,193,78,.4);
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.login-box h2{font-size:20px;font-weight:900;margin-bottom:6px}
+.login-box > p{font-size:12.5px;color:var(--muted);margin-bottom:22px;line-height:1.7}
+
+.field{margin-bottom:14px;text-align:right}
+.field label{display:block;font-size:12px;font-weight:700;color:#b9c4d6;margin-bottom:6px}
+.field input,.field select{
+  width:100%;padding:12px 14px;border-radius:12px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);
+  color:var(--txt);font-size:13.5px;outline:none;transition:.2s;
+}
+.field input:focus,.field select:focus{
+  border-color:rgba(242,193,78,.55);background:rgba(242,193,78,.05);
+}
+.field select option{background:#131c2c}
+.pass-wrap{position:relative}
+.pass-wrap input{padding-left:44px}
+.eye-btn{
+  position:absolute;left:8px;top:50%;transform:translateY(-50%);
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+  font-size:15px;background:rgba(255,255,255,.05);transition:.2s;
+}
+.eye-btn:hover{background:rgba(242,193,78,.15)}
+.wide{width:100%;justify-content:center;padding:13px;font-size:14px}
+
+.err-box{
+  display:none;margin-top:12px;padding:11px 14px;border-radius:11px;
+  background:rgba(255,77,94,.1);border:1px solid rgba(255,77,94,.35);
+  color:#ff8a95;font-size:12.5px;font-weight:700;text-align:center;
+}
+.err-box.show{display:block;animation:shake .4s}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-6px)}
+  40%{transform:translateX(6px)}
+  60%{transform:translateX(-4px)}
+  80%{transform:translateX(4px)}
+}
+.forgot-btn{
+  display:block;margin:14px auto 0;font-size:12px;color:var(--muted);
+  text-decoration:underline;padding:6px 10px;transition:.2s;
+}
+.forgot-btn:hover{color:var(--danger)}
+.hint{
+  font-size:11.5px;color:var(--muted);line-height:1.7;margin-top:14px;
+  padding:10px;border-radius:10px;background:rgba(255,255,255,.03);
+  border:1px dashed var(--line);
+}
+.hint b{color:#f2c14e}
+
+/* ===== لوحة التحكم ===== */
+.panel{max-width:1200px;margin:0 auto;padding:22px 18px 60px;display:none}
+.panel.show{display:block}
+.page-title{display:flex;align-items:center;gap:11px;margin-bottom:20px}
+.page-title::before{
+  content:"";width:5px;height:26px;border-radius:5px;
+  background:linear-gradient(180deg,#f2c14e,#a8791a);
+}
+.page-title h2{font-size:20px;font-weight:900}
+.page-title p{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:12px;margin-bottom:22px;
+}
+.stat{
+  padding:16px;border-radius:16px;
+  background:linear-gradient(180deg,rgba(20,29,46,.9),rgba(14,21,33,.9));
+  border:1px solid var(--line);
+}
+.stat .lbl{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.stat .val{font-size:24px;font-weight:900;color:var(--gold)}
+.stat.green .val{color:#5be89a}
+.stat.blue .val{font-size:14px;word-break:break-all;color:#7fd4ff}
+
+.tabs{display:flex;gap:6px;padding:6px;border-radius:14px;background:rgba(255,255,255,.04);margin-bottom:20px}
+.tab{
+  flex:1;padding:11px;border-radius:10px;font-size:13px;font-weight:700;
+  color:var(--muted);transition:.2s;
+}
+.tab.active{background:linear-gradient(145deg,#f2c14e,#c9922c);color:#1a1206}
+.tab-pane{display:none}
+.tab-pane.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.card{
+  padding:18px;border-radius:16px;margin-bottom:16px;
+  background:linear-gradient(180deg,rgba(20,29,46,.6),rgba(14,21,33,.6));
+  border:1px solid var(--line);
+}
+.card h3{font-size:14px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.add-box{
+  display:flex;gap:10px;align-items:flex-end;
+  padding:14px;border-radius:14px;
+  background:rgba(242,193,78,.05);border:1px solid rgba(242,193,78,.18);
+}
+.add-box .field{flex:1;margin:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+
+.list{display:flex;flex-direction:column;gap:8px;margin-top:14px;max-height:400px;overflow-y:auto;padding-left:4px}
+.item{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;
+  border-radius:12px;background:rgba(255,255,255,.035);
+  border:1px solid var(--line);transition:.2s;
+}
+.item:hover{border-color:rgba(242,193,78,.3);background:rgba(242,193,78,.05)}
+.item .info{flex:1;min-width:0}
+.item .info b{display:block;font-size:13.5px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .info small{display:block;font-size:10.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right;margin-top:2px}
+.item .logo{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  display:grid;place-items:center;overflow:hidden;
+  background:linear-gradient(145deg,#1d2739,#131a28);
+  border:1px solid var(--line);font-size:11px;font-weight:800;color:var(--gold);
+}
+.item .logo img{width:100%;height:100%;object-fit:contain;padding:4px}
+.item .tag{
+  font-size:10px;font-weight:800;padding:4px 9px;border-radius:20px;
+  background:rgba(41,182,246,.15);color:#7fd4ff;white-space:nowrap;
+}
+.item .actions{display:flex;gap:6px;flex-shrink:0}
+.icon-btn{
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+  font-size:14px;transition:.2s;
+}
+.icon-edit{background:rgba(41,182,246,.12);color:#7fd4ff}
+.icon-edit:hover{background:rgba(41,182,246,.28)}
+.icon-del{background:rgba(255,77,94,.12);color:#ff8a95}
+.icon-del:hover{background:rgba(255,77,94,.28)}
+
+.hint{font-size:11.5px;color:var(--muted);line-height:1.7;margin-top:10px}
+.empty-txt{text-align:center;padding:20px;font-size:12.5px;color:var(--muted)}
+.sep{height:1px;background:var(--line);margin:18px 0}
+
+/* المودال */
+.modal{
+  position:fixed;inset:0;z-index:200;display:none;
+  align-items:center;justify-content:center;padding:18px;
+  background:rgba(2,4,8,.82);backdrop-filter:blur(8px);
+}
+.modal.open{display:flex;animation:fadeIn .22s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-box{
+  width:100%;max-width:560px;max-height:88vh;overflow-y:auto;
+  background:linear-gradient(180deg,#131c2c,#0c121d);
+  border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:24px;
+  box-shadow:0 40px 90px rgba(0,0,0,.8);
+  animation:popIn .28s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes popIn{from{opacity:0;transform:scale(.94) translateY(14px)}to{opacity:1;transform:none}}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.modal-head h3{font-size:16px;font-weight:800}
+.close-x{
+  width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  background:rgba(255,255,255,.05);font-size:16px;transition:.2s;
+}
+.close-x:hover{background:rgba(255,77,94,.2);color:#ff8a95}
+
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);
+  padding:12px 22px;border-radius:12px;font-size:13px;font-weight:700;
+  background:linear-gradient(145deg,#1a2436,#111a28);
+  border:1px solid rgba(242,193,78,.4);
+  box-shadow:0 14px 40px rgba(0,0,0,.6);z-index:500;
+  transition:.35s cubic-bezier(.2,.9,.3,1.2);
+  opacity:0;pointer-events:none;
+}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+@media(max-width:700px){
+  .row2{grid-template-columns:1fr}
+  .add-box{flex-direction:column;align-items:stretch}
+  .brand span{display:none}
+  .tab{font-size:11.5px;padding:9px 6px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">⚙️</div>
+    <div>
+      <h1>لوحة التحكم</h1>
+      <span>AL ANKABOOT SPORT</span>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="status" id="statusPill" style="display:none">
+    <span class="dot"></span><span>متصل</span>
+  </div>
+  <a class="btn btn-ghost" href="index.html" target="_blank">👁️ عرض الموقع</a>
+  <button class="btn btn-danger" id="logoutBtn" style="display:none">خروج</button>
+</header>
+
+<!-- ===== شاشة تسجيل الدخول ===== -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-ico">🔐</div>
+    <h2>لوحة تحكم الأدمن</h2>
+    <p>هذه الصفحة مخصصة لمدير الموقع فقط.</p>
+
+    <div class="field">
+      <label>كلمة المرور</label>
+      <div class="pass-wrap">
+        <input type="password" id="passInput" placeholder="••••••••" autocomplete="off" />
+        <button class="eye-btn" id="eyeBtn" type="button">👁️</button>
+      </div>
+    </div>
+
+    <button class="btn btn-gold wide" id="loginBtn">🔓 دخول</button>
+
+    <div class="err-box" id="errBox"></div>
+
+    <button class="forgot-btn" id="forgotBtn">نسيت كلمة المرور؟</button>
+
+    <p class="hint">
+      كلمة المرور الافتراضية: <b>admin123</b>
+    </p>
+  </div>
+</div>
+
+<!-- ===== لوحة التحكم ===== -->
+<div class="panel" id="panel">
+
+  <div class="page-title">
+    <div>
+      <h2>إدارة الموقع</h2>
+      <p>أي تغيير هنا يظهر فوراً للمستخدم في صفحة العرض.</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="lbl">📁 الأقسام</div><div class="val" id="statCats">0</div></div>
+    <div class="stat green"><div class="lbl">📺 القنوات</div><div class="val" id="statChans">0</div></div>
+    <div class="stat blue"><div class="lbl">🔗 قناة تيليجرام</div><div class="val" id="statTg">—</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="tabCats">📁 الأقسام</button>
+    <button class="tab" data-tab="tabChans">📺 القنوات</button>
+    <button class="tab" data-tab="tabSet">⚙️ الإعدادات</button>
+  </div>
+
+  <!-- تبويب الأقسام -->
+  <div class="tab-pane active" id="tabCats">
+    <div class="card">
+      <h3>➕ إضافة قسم جديد</h3>
+      <div class="add-box">
+        <div class="field">
+          <label>اسم القسم</label>
+          <input type="text" id="catNameInput" placeholder="مثال: beIN SPORTS" />
+        </div>
+        <div class="field">
+          <label>صورة/لوجو القسم (اختياري)</label>
+          <input type="text" id="catLogoInput" placeholder="https://..." style="direction:ltr;text-align:left" />
+        </div>
+        <button class="btn btn-gold" id="addCatBtn" style="padding:11px 20px">إضافة</button>
+      </div>
+      <p class="hint">💡 القسم هو القائمة الرئيسية (مثل: beIN SPORTS، AD Sports، Al Kass).</p>
+    </div>
+
+    <div class="card">
+      <h3>📁 كل الأقسام</h3>
+      <div class="list" id="catsList"></div>
+    </div>
+  </div>
+
+  <!-- تبويب القنوات -->
+  <div class="tab-pane" id="tabChans">
+    <div class="card">
+      <h3>➕ إضافة قناة جديدة</h3>
+
+      <div class="field">
+        <label>القسم التابع له</label>
+        <select id="chanCatSelect"></select>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>اسم القناة</label>
+          <input type="text" id="chanNameInput" placeholder="مثال: beIN SPORTS 1" />
+        </div>
+        <div class="field">
+          <label>صورة/لوجو القناة (اختياري)</label>
+          <input type="text" id="chanLogoInput" placeholder="https://..." style="direction:ltr;text-align:left" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>رابط البث (m3u8 أو iframe)</label>
+        <input type="text" id="chanUrlInput" placeholder="https://example.com/stream.m3u8" style="direction:ltr;text-align:left" />
+      </div>
+
+      <button class="btn btn-gold wide" id="addChanBtn">➕ إضافة القناة</button>
+      <p class="hint">💡 يدعم المشغل روابط <b>.m3u8</b> (HLS) وروابط <b>iframe</b> تلقائياً.</p>
+    </div>
+
+    <div class="card">
+      <h3>📺 كل القنوات</h3>
+      <div class="list" id="chansList"></div>
+    </div>
+  </div>
+
+  <!-- تبويب الإعدادات -->
+  <div class="tab-pane" id="tabSet">
+    <div class="card">
+      <h3>🔗 قناة التيليجرام</h3>
+      <div class="field">
+        <label>رابط القناة</label>
+        <input type="text" id="setTgUrl" placeholder="https://t.me/..." style="direction:ltr;text-align:left" />
+      </div>
+      <div class="field">
+        <label>اسم / وصف القناة</label>
+        <input type="text" id="setTgLabel" placeholder="AL ANKABOOT SPORT" />
+      </div>
+      <button class="btn btn-gold wide" id="saveTgBtn">💾 حفظ إعدادات التيليجرام</button>
+    </div>
+
+    <div class="card">
+      <h3>🔑 كلمة مرور الأدمن</h3>
+      <div class="field">
+        <label>كلمة المرور الجديدة</label>
+        <input type="password" id="setNewPass" placeholder="4 أحرف على الأقل" />
+      </div>
+      <button class="btn btn-ghost wide" id="changePassBtn">🔑 تغيير كلمة المرور</button>
+    </div>
+
+    <div class="card">
+      <h3>💾 النسخ الاحتياطي</h3>
+      <div class="row2">
+        <button class="btn btn-ghost" id="exportBtn" style="justify-content:center;padding:12px">⬇️ تصدير نسخة JSON</button>
+        <button class="btn btn-ghost" id="importBtn" style="justify-content:center;padding:12px">⬆️ استيراد نسخة</button>
+      </div>
+      <input type="file" id="importFile" accept=".json" style="display:none" />
+      <div class="sep"></div>
+      <button class="btn btn-danger wide" id="resetBtn">🗑️ حذف جميع البيانات</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- مودال تعديل قناة -->
+<div class="modal" id="editModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>✏️ تعديل القناة</h3>
+      <button class="close-x" data-close="editModal">✕</button>
+    </div>
+    <input type="hidden" id="editChanId" />
+    <div class="field">
+      <label>القسم</label>
+      <select id="editChanCat"></select>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>اسم القناة</label>
+        <input type="text" id="editChanName" />
+      </div>
+      <div class="field">
+        <label>صورة/لوجو القناة</label>
+        <input type="text" id="editChanLogo" style="direction:ltr;text-align:left" />
+      </div>
+    </div>
+    <div class="field">
+      <label>رابط البث</label>
+      <input type="text" id="editChanUrl" style="direction:ltr;text-align:left" />
+    </div>
+    <button class="btn btn-gold wide" id="saveEditBtn">💾 حفظ التعديلات</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   ADMIN PANEL — FULL
+   ========================================================= */
+const STORE_KEY   = 'ankaboot_iptv_data';
+const SESSION_KEY = 'ankaboot_admin_session';
+const DEFAULT_PASS = 'admin123';
+
+const DEFAULT_STATE = {
+  telegram: 'https://t.me/alankabootsport',
+  tgLabel : 'AL ANKABOOT SPORT',
+  password: DEFAULT_PASS,
+  categories: []
+};
+
+let state = null;
+let editingChanId = null;
+
+/* ---------- أدوات ---------- */
+const $  = (s, p = document) => p.querySelector(s);
+const $$ = (s, p = document) => [...p.querySelectorAll(s)];
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const clone = o => JSON.parse(JSON.stringify(o));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const initials = n => (n||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(!raw) return clone(DEFAULT_STATE);
+    const d = JSON.parse(raw);
+    const b = clone(DEFAULT_STATE);
+    return {
+      telegram : d.telegram || b.telegram,
+      tgLabel  : d.tgLabel  || b.tgLabel,
+      password : d.password || b.password,
+      categories: Array.isArray(d.categories) ? d.categories : []
+    };
+  }catch(e){ return clone(DEFAULT_STATE); }
+}
+function saveState(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+  catch(e){ toast('تعذر الحفظ'); }
+}
+
+let toastTimer;
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+function showError(msg){
+  const box = $('#errBox');
+  box.textContent = '❌ ' + msg;
+  box.classList.remove('show');
+  void box.offsetWidth;
+  box.classList.add('show');
+}
+
+/* ---------- تحميل الحالة ---------- */
+state = loadState();
+console.log('🔑 كلمة المرور المتوقعة:', state.password);
+
+/* ---------- إظهار كلمة السر ---------- */
+$('#eyeBtn').addEventListener('click', () => {
+  const inp = $('#passInput');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  $('#eyeBtn').textContent = inp.type === 'password' ? '👁️' : '🙈';
+});
+
+/* ---------- تسجيل الدخول ---------- */
+function doLogin(){
+  const entered = $('#passInput').value;
+  if(entered === state.password){
+    sessionStorage.setItem(SESSION_KEY, '1');
+    showPanel();
+    toast('مرحباً بك 👋');
+  }else{
+    showError('كلمة المرور غير صحيحة');
+  }
+}
+$('#loginBtn').addEventListener('click', doLogin);
+$('#passInput').addEventListener('keydown', e => { if(e.key === 'Enter') doLogin(); });
+
+function showPanel(){
+  $('#loginWrap').style.display = 'none';
+  $('#panel').classList.add('show');
+  $('#statusPill').style.display = 'flex';
+  $('#logoutBtn').style.display = 'inline-flex';
+  renderAll();
+}
+$('#logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+});
+
+if(sessionStorage.getItem(SESSION_KEY) === '1') showPanel();
+
+/* ---------- نسيت كلمة المرور ---------- */
+$('#forgotBtn').addEventListener('click', () => {
+  if(!confirm('سيتم إعادة كلمة المرور إلى: admin123\n(الأقسام والقنوات لن تُحذف)')) return;
+  state.password = DEFAULT_PASS;
+  saveState();
+  toast('كلمة المرور الجديدة: admin123 ✅');
+  $('#passInput').value = '';
+  showError('كلمة المرور الجديدة هي: admin123');
+});
+
+/* =========================================================
+   التبويبات
+   ========================================================= */
+$$('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    $$('.tab').forEach(t => t.classList.remove('active'));
+    $$('.tab-pane').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    $('#' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+/* =========================================================
+   عرض البيانات
+   ========================================================= */
+function renderAll(){
+  renderStats();
+  renderCats();
+  renderChans();
+  renderChanCatSelects();
+  renderSettings();
+}
+
+function renderStats(){
+  $('#statCats').textContent = state.categories.length;
+  const total = state.categories.reduce((n,c) => n + (c.channels||[]).length, 0);
+  $('#statChans').textContent = total;
+  $('#statTg').textContent = state.telegram.replace(/^https?:\/\//,'');
+}
+
+function renderCats(){
+  const wrap = $('#catsList');
+  if(!state.categories.length){
+    wrap.innerHTML = '<div class="empty-txt">📭 لا توجد أقسام بعد</div>';
+    return;
+  }
+  wrap.innerHTML = state.categories.map(c => `
+    <div class="item">
+      <div class="logo">
+        ${c.logo
+          ? `<img src="${esc(c.logo)}" onerror="this.style.display='none';this.parentNode.textContent='${esc(initials(c.name))}'">`
+          : esc(initials(c.name))}
+      </div>
+      <div class="info">
+        <b>${esc(c.name)}</b>
+        <small>${(c.channels||[]).length} قناة</small>
+      </div>
+      <div class="actions">
+        <button class="icon-btn icon-del" data-delcat="${c.id}" title="حذف">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderChans(){
+  const wrap = $('#chansList');
+  let rows = '';
+  state.categories.forEach(cat => {
+    (cat.channels||[]).forEach(ch => {
+      rows += `
+        <div class="item">
+          <div class="logo">
+            ${ch.logo
+              ? `<img src="${esc(ch.logo)}" onerror="this.style.display='none';this.parentNode.textContent='${esc(initials(ch.name))}'">`
+              : esc(initials(ch.name))}
+          </div>
+          <div class="info">
+            <b>${esc(ch.name)}</b>
+            <small>${esc(ch.url)}</small>
+          </div>
+          <span class="tag">${esc(cat.name)}</span>
+          <div class="actions">
+            <button class="icon-btn icon-edit" data-editchan="${cat.id}|${ch.id}" title="تعديل">✏️</button>
+            <button class="icon-btn icon-del" data-delchan="${cat.id}|${ch.id}" title="حذف">🗑️</button>
+          </div>
+        </div>`;
+    });
+  });
+  wrap.innerHTML = rows || '<div class="empty-txt">📭 لا توجد قنوات بعد</div>';
+}
+
+function renderChanCatSelects(){
+  const opts = state.categories.length
+    ? state.categories.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('')
+    : '<option value="">— لا توجد أقسام —</option>';
+  $('#chanCatSelect').innerHTML = opts;
+  $('#editChanCat').innerHTML = opts;
+}
+
+function renderSettings(){
+  $('#setTgUrl').value   = state.telegram;
+  $('#setTgLabel').value = state.tgLabel;
+}
+
+/* =========================================================
+   الأقسام
+   ========================================================= */
+$('#addCatBtn').addEventListener('click', () => {
+  const name = $('#catNameInput').value.trim();
+  const logo = $('#catLogoInput').value.trim();
+  if(!name) return toast('اكتب اسم القسم');
+  if(state.categories.some(c => c.name.toLowerCase() === name.toLowerCase()))
+    return toast('هذا القسم موجود بالفعل');
+  state.categories.push({ id: uid(), name, logo, channels: [] });
+  saveState();
+  $('#catNameInput').value = '';
+  $('#catLogoInput').value = '';
+  renderAll();
+  toast('تم إضافة القسم ✅');
+});
+
+$('#catsList').addEventListener('click', e => {
+  const btn = e.target.closest('[data-delcat]');
+  if(!btn) return;
+  const id = btn.dataset.delcat;
+  const cat = state.categories.find(c => c.id === id);
+  if(!cat) return;
+  if(!confirm(`حذف القسم "${cat.name}" وكل قنواته؟`)) return;
+  state.categories = state.categories.filter(c => c.id !== id);
+  saveState();
+  renderAll();
+  toast('تم حذف القسم 🗑️');
+});
+
+/* =========================================================
+   القنوات
+   ========================================================= */
+$('#addChanBtn').addEventListener('click', () => {
+  const catId = $('#chanCatSelect').value;
+  const name  = $('#chanNameInput').value.trim();
+  const url   = $('#chanUrlInput').value.trim();
+  const logo  = $('#chanLogoInput').value.trim();
+  if(!catId) return toast('أضف قسماً أولاً');
+  if(!name)  return toast('اكتب اسم القناة');
+  if(!url)   return toast('اكتب رابط البث');
+
+  const cat = state.categories.find(c => c.id === catId);
+  if(!cat) return;
+  cat.channels = cat.channels || [];
+  cat.channels.push({ id: uid(), name, url, logo });
+
+  saveState();
+  $('#chanNameInput').value = '';
+  $('#chanUrlInput').value  = '';
+  $('#chanLogoInput').value = '';
+  renderAll();
+  toast('تم إضافة القناة ✅');
+});
+
+$('#chansList').addEventListener('click', e => {
+  const delBtn  = e.target.closest('[data-delchan]');
+  const editBtn = e.target.closest('[data-editchan]');
+
+  if(delBtn){
+    const [catId, chanId] = delBtn.dataset.delchan.split('|');
+    const cat = state.categories.find(c => c.id === catId);
+    if(!cat) return;
+    if(!confirm('حذف هذه القناة؟')) return;
+    cat.channels = (cat.channels||[]).filter(c => c.id !== chanId);
+    saveState(); renderAll();
+    toast('تم حذف القناة 🗑️');
+  }
+
+  if(editBtn){
+    const [catId, chanId] = editBtn.dataset.editchan.split('|');
+    const cat = state.categories.find(c => c.id === catId);
+    if(!cat) return;
+    const ch = (cat.channels||[]).find(c => c.id === chanId);
+    if(!ch) return;
+    editingChanId = chanId;
+    $('#editChanId').value   = chanId;
+    $('#editChanCat').value  = catId;
+    $('#editChanName').value = ch.name;
+    $('#editChanUrl').value  = ch.url;
+    $('#editChanLogo').value = ch.logo || '';
+    $('#editModal').classList.add('open');
+  }
+});
+
+/* حفظ التعديل */
+$('#saveEditBtn').addEventListener('click', () => {
+  const chanId   = $('#editChanId').value;
+  const newCatId = $('#editChanCat').value;
+  const name     = $('#editChanName').value.trim();
+  const url      = $('#editChanUrl').value.trim();
+  const logo     = $('#editChanLogo').value.trim();
+  if(!name || !url) return toast('اكمل البيانات');
+
+  let oldChan = null;
+  state.categories.forEach(cat => {
+    const found = (cat.channels||[]).find(c => c.id === chanId);
+    if(found) oldChan = found;
+  });
+  if(!oldChan) return;
+
+  state.categories.forEach(cat => {
+    cat.channels = (cat.channels||[]).filter(c => c.id !== chanId);
+  });
+
+  const targetCat = state.categories.find(c => c.id === newCatId);
+  if(!targetCat) return;
+  targetCat.channels = targetCat.channels || [];
+  targetCat.channels.push({ id: chanId, name, url, logo });
+
+  saveState();
+  $('#editModal').classList.remove('open');
+  renderAll();
+  toast('تم حفظ التعديلات ✅');
+});
+
+/* إغلاق المودال */
+$$('[data-close]').forEach(b => b.addEventListener('click', () => {
+  $('#' + b.dataset.close).classList.remove('open');
+}));
+$$('.modal').forEach(m => m.addEventListener('click', e => {
+  if(e.target === m) m.classList.remove('open');
+}));
+
+/* =========================================================
+   الإعدادات
+   ========================================================= */
+$('#saveTgBtn').addEventListener('click', () => {
+  const url = $('#setTgUrl').value.trim();
+  const lbl = $('#setTgLabel').value.trim() || 'AL ANKABOOT SPORT';
+  if(!url) return toast('اكتب رابط قناة التيليجرام');
+  state.telegram = url;
+  state.tgLabel = lbl;
+  saveState();
+  renderStats();
+  toast('تم حفظ إعدادات التيليجرام ✅');
+});
+
+$('#changePassBtn').addEventListener('click', () => {
+  const np = $('#setNewPass').value.trim();
+  if(np.length < 4) return toast('كلمة المرور يجب أن تكون 4 أحرف على الأقل');
+  state.password = np;
+  saveState();
+  $('#setNewPass').value = '';
+  toast('تم تغيير كلمة المرور 🔑');
+});
+
+/* تصدير */
+$('#exportBtn').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ankaboot-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('تم تصدير النسخة ⬇️');
+});
+
+/* استيراد */
+$('#importBtn').addEventListener('click', () => $('#importFile').click());
+$('#importFile').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try{
+      const d = JSON.parse(ev.target.result);
+      if(!d.categories) throw new Error('ملف غير صالح');
+      state.categories = d.categories;
+      if(d.telegram) state.telegram = d.telegram;
+      if(d.tgLabel)  state.tgLabel  = d.tgLabel;
+      if(d.password) state.password = d.password;
+      saveState();
+      renderAll();
+      toast('تم استيراد النسخة ✅');
+    }catch(err){ toast('ملف غير صالح ❌'); }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
+
+/* حذف الكل */
+$('#resetBtn').addEventListener('click', () => {
+  if(!confirm('سيتم حذف جميع الأقسام والقنوات والإعدادات. متابعة؟')) return;
+  localStorage.removeItem(STORE_KEY);
+  state = clone(DEFAULT_STATE);
+  renderAll();
+  toast('تم حذف كل البيانات 🗑️');
+});
+</script>
+</body>
+</html>
