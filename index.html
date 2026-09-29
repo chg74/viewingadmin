@@ -62,6 +62,8 @@ input,select{font-family:inherit}
   font-size:11px;font-weight:700;background:rgba(40,199,111,.2);color:#5be89a;z-index:999}
 .status.err{background:rgba(255,77,94,.2);color:#ff8a95}
 .status.wait{background:rgba(242,193,78,.2);color:#f2c14e}
+.tip{font-size:11px;color:#8695ac;margin-top:6px;line-height:1.6}
+.tip b{color:#f2c14e}
 </style>
 </head>
 <body>
@@ -109,8 +111,11 @@ input,select{font-family:inherit}
       <div class="f"><label>اسم القناة</label><input type="text" id="chName" placeholder="beIN 1"></div>
       <div class="f"><label>لوجو (اختياري)</label><input type="text" id="chLogo" placeholder="https://..." style="direction:ltr;text-align:left"></div>
     </div>
-    <div class="f" style="margin-top:10px"><label>رابط البث (m3u8 / iframe)</label>
-      <input type="text" id="chUrl" placeholder="https://..." style="direction:ltr;text-align:left"></div>
+    <div class="f" style="margin-top:10px">
+      <label>رابط البث (m3u8 أو iframe)</label>
+      <input type="text" id="chUrl" placeholder="http://example.com/stream.m3u8" style="direction:ltr;text-align:left">
+      <div class="tip">⚠️ حط الرابط الأصلي فقط — بدون أي إضافات</div>
+    </div>
     <button type="button" class="btn-gold" style="width:100%;margin-top:8px" onclick="window.__addChan()">➕ إضافة القناة</button>
     <div class="list" id="chansList"></div>
   </div>
@@ -139,7 +144,6 @@ input,select{font-family:inherit}
 
   var PANTRY_ID = '5dd567ce-5bb7-46a4-8005-d022dd892f32';
   var BASKET    = 'ankaboot_data';
-
   var DEFAULT_USER = 'FF';
   var DEFAULT_PASS = 'FFFF';
 
@@ -158,15 +162,10 @@ input,select{font-family:inherit}
   async function loadFromCloud(){
     try{
       var res = await fetch('https://getpantry.cloud/apiv1/pantry/' + PANTRY_ID + '/basket/' + BASKET + '?t=' + Date.now());
-      if(res.status === 400 || res.status === 404){
-        return null;
-      }
+      if(res.status === 400 || res.status === 404) return null;
       if(!res.ok) throw new Error('bad');
-      var data = await res.json();
-      return data;
-    }catch(e){
-      return null;
-    }
+      return await res.json();
+    }catch(e){ return null; }
   }
 
   async function saveToCloud(){
@@ -189,10 +188,8 @@ input,select{font-family:inherit}
     var u = ($('uInput').value || '').trim();
     var p = $('pInput').value || '';
     var err = $('errMsg');
-
     var masterOk = (u === DEFAULT_USER && p === DEFAULT_PASS);
     var savedOk  = (u === state.username && p === state.password);
-
     if(masterOk || savedOk){
       try{ sessionStorage.setItem('ankaboot_admin_session', '1'); }catch(e){}
       showPanel();
@@ -310,6 +307,16 @@ input,select{font-family:inherit}
     if(!catId) return toast('أضف قسماً أولاً');
     if(!name) return toast('اكتب اسم القناة');
     if(!url) return toast('اكتب رابط البث');
+
+    // ✅ تنظيف الرابط — لو المستخدم حط رابط مبروكس، نشيل الجزء الزيادة
+    if(url.indexOf('/api/proxy?url=') !== -1){
+      try{
+        var m = url.match(/\/api\/proxy\?url=(.+)$/);
+        if(m && m[1]) url = decodeURIComponent(m[1]);
+      }catch(e){}
+      toast('تم تصحيح الرابط تلقائياً ✂️');
+    }
+
     var cat = state.categories.find(function(c){ return c.id === catId; });
     if(!cat) return;
     cat.channels = cat.channels || [];
