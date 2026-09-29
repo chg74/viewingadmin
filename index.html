@@ -9,6 +9,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--gold:#f2c14e;--gold-d:#a8791a;--bg:#06080e;--line:rgba(255,255,255,.07);--txt:#e9eef8;--muted:#8695ac;--danger:#ff4d5e}
 body{font-family:'Cairo',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;
+  user-select:none;-webkit-user-select:none;
   background:radial-gradient(1000px 500px at 85% -10%, #1b2436 0%, transparent 60%),
              radial-gradient(800px 400px at -10% 110%, #241b06 0%, transparent 55%),var(--bg)}
 button,input,select{font-family:inherit}
@@ -34,7 +35,7 @@ button{cursor:pointer;border:0;background:none;color:inherit}
 .btn-danger:hover{background:rgba(255,77,94,.22)}
 
 .login-wrap{min-height:calc(100vh - 66px);display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{width:100%;max-width:420px;padding:32px 28px;border-radius:22px;
+.login-box{width:100%;max-width:420px;padding:34px 28px;border-radius:22px;
   background:linear-gradient(180deg,#131c2c,#0c121d);border:1px solid rgba(255,255,255,.09);
   box-shadow:0 40px 90px rgba(0,0,0,.7);text-align:center}
 .login-ico{width:76px;height:76px;margin:0 auto 18px;border-radius:22px;display:grid;place-items:center;font-size:32px;
@@ -58,11 +59,6 @@ button{cursor:pointer;border:0;background:none;color:inherit}
 .err-box{display:none;margin-top:12px;padding:11px 14px;border-radius:11px;background:rgba(255,77,94,.1);
   border:1px solid rgba(255,77,94,.35);color:#ff8a95;font-size:12.5px;font-weight:700;text-align:center}
 .err-box.show{display:block}
-.forgot-btn{display:block;margin:14px auto 0;font-size:12px;color:var(--muted);text-decoration:underline;padding:6px 10px}
-.forgot-btn:hover{color:var(--danger)}
-.hint{font-size:11.5px;color:var(--muted);line-height:1.7;margin-top:14px;padding:10px;border-radius:10px;
-  background:rgba(255,255,255,.03);border:1px dashed var(--line)}
-.hint b{color:#f2c14e}
 
 .panel{max-width:1200px;margin:0 auto;padding:22px 18px 60px;display:none}
 .panel.show{display:block}
@@ -90,7 +86,6 @@ button{cursor:pointer;border:0;background:none;color:inherit}
   background:rgba(242,193,78,.05);border:1px solid rgba(242,193,78,.18)}
 .add-box .field{flex:1;margin:0}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-
 .list{display:flex;flex-direction:column;gap:8px;margin-top:14px;max-height:400px;overflow-y:auto;padding-left:4px}
 .item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;
   background:rgba(255,255,255,.035);border:1px solid var(--line);transition:.2s}
@@ -110,7 +105,6 @@ button{cursor:pointer;border:0;background:none;color:inherit}
 .icon-edit:hover{background:rgba(41,182,246,.28)}
 .icon-del{background:rgba(255,77,94,.12);color:#ff8a95}
 .icon-del:hover{background:rgba(255,77,94,.28)}
-
 .empty-txt{text-align:center;padding:20px;font-size:12.5px;color:var(--muted)}
 .sep{height:1px;background:var(--line);margin:18px 0}
 
@@ -129,11 +123,18 @@ button{cursor:pointer;border:0;background:none;color:inherit}
   border:1px solid rgba(242,193,78,.4);box-shadow:0 14px 40px rgba(0,0,0,.6);z-index:500;transition:.35s;opacity:0;pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
+.sync-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:20px;
+  font-size:10.5px;font-weight:800;background:rgba(40,199,111,.15);color:#5be89a;border:1px solid rgba(40,199,111,.3)}
+.sync-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#28c76f;
+  box-shadow:0 0 8px #28c76f;animation:pulse 1.5s infinite}
+@keyframes pulse{50%{opacity:.4}}
+
 @media(max-width:700px){
   .row2{grid-template-columns:1fr}
   .add-box{flex-direction:column;align-items:stretch}
   .brand span{display:none}
   .tab{font-size:11.5px;padding:9px 6px}
+  .item .tag{display:none}
 }
 </style>
 </head>
@@ -145,6 +146,7 @@ button{cursor:pointer;border:0;background:none;color:inherit}
     <div><h1>لوحة التحكم</h1><span>AL ANKABOOT SPORT</span></div>
   </div>
   <div class="spacer"></div>
+  <span class="sync-badge" id="syncBadge">مزامنة حية</span>
   <a class="btn btn-ghost" href="index.html" target="_blank">👁️ عرض الموقع</a>
   <button class="btn btn-danger" id="logoutBtn" style="display:none">خروج</button>
 </header>
@@ -155,6 +157,10 @@ button{cursor:pointer;border:0;background:none;color:inherit}
     <h2>لوحة تحكم الأدمن</h2>
     <p>هذه الصفحة مخصصة لمدير الموقع فقط.</p>
     <div class="field">
+      <label>اسم المستخدم</label>
+      <input type="text" id="userInput" placeholder="اسم المستخدم" autocomplete="off" />
+    </div>
+    <div class="field">
       <label>كلمة المرور</label>
       <div class="pass-wrap">
         <input type="password" id="passInput" placeholder="••••••••" autocomplete="off" />
@@ -163,14 +169,12 @@ button{cursor:pointer;border:0;background:none;color:inherit}
     </div>
     <button class="btn btn-gold wide" id="loginBtn">🔓 دخول</button>
     <div class="err-box" id="errBox"></div>
-    <button class="forgot-btn" id="forgotBtn">نسيت كلمة المرور؟</button>
-    <p class="hint">كلمة المرور الافتراضية: <b>admin123</b></p>
   </div>
 </div>
 
 <div class="panel" id="panel">
   <div class="page-title">
-    <div><h2>إدارة الموقع</h2><p>كل تغيير هنا يظهر فوراً للمستخدم.</p></div>
+    <div><h2>إدارة الموقع</h2><p>كل تغيير هنا يظهر فوراً للمستخدم في كل التابات المفتوحة.</p></div>
   </div>
 
   <div class="stats">
@@ -249,12 +253,18 @@ button{cursor:pointer;border:0;background:none;color:inherit}
     </div>
 
     <div class="card">
-      <h3>🔑 كلمة مرور الأدمن</h3>
-      <div class="field">
-        <label>كلمة المرور الجديدة</label>
-        <input type="password" id="setNewPass" placeholder="4 أحرف على الأقل" />
+      <h3>🔑 بيانات الدخول للوحة</h3>
+      <div class="row2">
+        <div class="field">
+          <label>اسم المستخدم الجديد</label>
+          <input type="text" id="setNewUser" placeholder="FF" />
+        </div>
+        <div class="field">
+          <label>كلمة المرور الجديدة</label>
+          <input type="text" id="setNewPass" placeholder="FFFF" />
+        </div>
       </div>
-      <button class="btn btn-ghost wide" id="changePassBtn">🔑 تغيير كلمة المرور</button>
+      <button class="btn btn-ghost wide" id="changeCredsBtn">🔑 تحديث بيانات الدخول</button>
     </div>
 
     <div class="card">
@@ -302,16 +312,17 @@ button{cursor:pointer;border:0;background:none;color:inherit}
 <div class="toast" id="toast"></div>
 
 <script>
-/* =========================================================
-   ADMIN PANEL — localStorage فقط، بدون سيرفر
-   ========================================================= */
-const STORE_KEY    = 'ankaboot_iptv_data';
-const SESSION_KEY  = 'ankaboot_admin_session';
-const DEFAULT_PASS = 'admin123';
+/* ============ ثوابت ============ */
+const STORE_KEY   = 'ankaboot_iptv_data';
+const SESSION_KEY = 'ankaboot_admin_session';
+const SYNC_CH     = 'ankaboot_sync_channel';
+const DEFAULT_USER = 'FF';
+const DEFAULT_PASS = 'FFFF';
 
 const DEFAULT_STATE = {
   telegram: 'https://t.me/alankabootsport',
   tgLabel : 'AL ANKABOOT SPORT',
+  username: DEFAULT_USER,
   password: DEFAULT_PASS,
   categories: []
 };
@@ -319,11 +330,22 @@ const DEFAULT_STATE = {
 let state = loadState();
 let editingChanId = null;
 
-const $  = (s, p = document) => p.querySelector(s);
-const $$ = (s, p = document) => [...p.querySelectorAll(s)];
-const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+/* ============ BroadcastChannel للمزامنة الفورية ============ */
+let syncCh = null;
+try {
+  syncCh = new BroadcastChannel(SYNC_CH);
+} catch(e){}
+
+function broadcastUpdate(){
+  try{ syncCh && syncCh.postMessage({ type:'update', at: Date.now() }); }catch(e){}
+}
+
+/* ============ helpers ============ */
+const $  = (s,p=document) => p.querySelector(s);
+const $$ = (s,p=document) => [...p.querySelectorAll(s)];
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
 const clone = o => JSON.parse(JSON.stringify(o));
-const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const esc = s => String(s??'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const initials = n => (n||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
 
 function loadState(){
@@ -335,14 +357,17 @@ function loadState(){
     return {
       telegram : d.telegram || b.telegram,
       tgLabel  : d.tgLabel  || b.tgLabel,
-      password : d.password || b.password,
+      username : d.username || DEFAULT_USER,
+      password : d.password || DEFAULT_PASS,
       categories: Array.isArray(d.categories) ? d.categories : []
     };
   }catch(e){ return clone(DEFAULT_STATE); }
 }
 function saveState(){
-  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
-  catch(e){ toast('تعذر الحفظ'); }
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    broadcastUpdate();
+  }catch(e){ toast('تعذر الحفظ'); }
 }
 
 let toastTimer;
@@ -351,7 +376,7 @@ function toast(msg){
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
 }
 function showError(msg){
   const box = $('#errBox');
@@ -361,7 +386,7 @@ function showError(msg){
   box.classList.add('show');
 }
 
-/* ---------- تسجيل الدخول ---------- */
+/* ============ تسجيل الدخول ============ */
 $('#eyeBtn').addEventListener('click', () => {
   const inp = $('#passInput');
   inp.type = inp.type === 'password' ? 'text' : 'password';
@@ -369,16 +394,19 @@ $('#eyeBtn').addEventListener('click', () => {
 });
 
 function doLogin(){
-  if($('#passInput').value === state.password){
+  const u = $('#userInput').value.trim();
+  const p = $('#passInput').value;
+  if(u === state.username && p === state.password){
     sessionStorage.setItem(SESSION_KEY, '1');
     showPanel();
     toast('مرحباً بك 👋');
   }else{
-    showError('كلمة المرور غير صحيحة');
+    showError('اسم المستخدم أو كلمة المرور غير صحيحة');
   }
 }
 $('#loginBtn').addEventListener('click', doLogin);
 $('#passInput').addEventListener('keydown', e => { if(e.key === 'Enter') doLogin(); });
+$('#userInput').addEventListener('keydown', e => { if(e.key === 'Enter') $('#passInput').focus(); });
 
 function showPanel(){
   $('#loginWrap').style.display = 'none';
@@ -390,19 +418,9 @@ $('#logoutBtn').addEventListener('click', () => {
   sessionStorage.removeItem(SESSION_KEY);
   location.reload();
 });
-
 if(sessionStorage.getItem(SESSION_KEY) === '1') showPanel();
 
-$('#forgotBtn').addEventListener('click', () => {
-  if(!confirm('سيتم إعادة كلمة المرور إلى: admin123\n(الأقسام والقنوات لن تُحذف)')) return;
-  state.password = DEFAULT_PASS;
-  saveState();
-  toast('كلمة المرور الجديدة: admin123 ✅');
-  $('#passInput').value = '';
-  showError('كلمة المرور الجديدة هي: admin123');
-});
-
-/* ---------- تبويبات ---------- */
+/* ============ تبويبات ============ */
 $$('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     $$('.tab').forEach(t => t.classList.remove('active'));
@@ -412,7 +430,7 @@ $$('.tab').forEach(tab => {
   });
 });
 
-/* ---------- عرض ---------- */
+/* ============ عرض ============ */
 function renderAll(){ renderStats(); renderCats(); renderChans(); renderChanCatSelects(); renderSettings(); }
 function renderStats(){
   $('#statCats').textContent = state.categories.length;
@@ -459,7 +477,7 @@ function renderSettings(){
   $('#setTgLabel').value = state.tgLabel;
 }
 
-/* ---------- الأقسام ---------- */
+/* ============ الأقسام ============ */
 $('#addCatBtn').addEventListener('click', () => {
   const name = $('#catNameInput').value.trim();
   const logo = $('#catLogoInput').value.trim();
@@ -483,7 +501,7 @@ $('#catsList').addEventListener('click', e => {
   toast('تم حذف القسم 🗑️');
 });
 
-/* ---------- القنوات ---------- */
+/* ============ القنوات ============ */
 $('#addChanBtn').addEventListener('click', () => {
   const catId = $('#chanCatSelect').value;
   const name  = $('#chanNameInput').value.trim();
@@ -552,7 +570,7 @@ $('#saveEditBtn').addEventListener('click', () => {
 $$('[data-close]').forEach(b => b.addEventListener('click', () => $('#' + b.dataset.close).classList.remove('open')));
 $$('.modal').forEach(m => m.addEventListener('click', e => { if(e.target === m) m.classList.remove('open'); }));
 
-/* ---------- الإعدادات ---------- */
+/* ============ الإعدادات ============ */
 $('#saveTgBtn').addEventListener('click', () => {
   const url = $('#setTgUrl').value.trim();
   const lbl = $('#setTgLabel').value.trim() || 'AL ANKABOOT SPORT';
@@ -560,15 +578,18 @@ $('#saveTgBtn').addEventListener('click', () => {
   state.telegram = url;
   state.tgLabel = lbl;
   saveState();
-  toast('تم حفظ إعدادات التيليجرام ✅');
+  toast('تم حفظ الإعدادات ✅');
 });
-$('#changePassBtn').addEventListener('click', () => {
-  const np = $('#setNewPass').value.trim();
-  if(np.length < 4) return toast('4 أحرف على الأقل');
-  state.password = np;
+$('#changeCredsBtn').addEventListener('click', () => {
+  const u = $('#setNewUser').value.trim();
+  const p = $('#setNewPass').value.trim();
+  if(!u || !p) return toast('اكتب اسم مستخدم وكلمة مرور');
+  state.username = u;
+  state.password = p;
   saveState();
+  $('#setNewUser').value = '';
   $('#setNewPass').value = '';
-  toast('تم تغيير كلمة المرور 🔑');
+  toast('تم تحديث بيانات الدخول 🔑');
 });
 $('#exportBtn').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
@@ -591,6 +612,7 @@ $('#importFile').addEventListener('change', e => {
       state.categories = d.categories;
       if(d.telegram) state.telegram = d.telegram;
       if(d.tgLabel)  state.tgLabel  = d.tgLabel;
+      if(d.username) state.username = d.username;
       if(d.password) state.password = d.password;
       saveState(); renderAll();
       toast('تم استيراد النسخة ✅');
@@ -607,6 +629,17 @@ $('#resetBtn').addEventListener('click', () => {
   renderAll();
   toast('تم حذف كل البيانات 🗑️');
 });
+
+/* ============ حماية ============ */
+document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
+document.addEventListener('keydown', e => {
+  const k = e.key;
+  if(k === 'F12'){ e.preventDefault(); e.stopPropagation(); return false; }
+  if(e.ctrlKey && e.shiftKey && ['I','J','C','K','i','j','c','k'].includes(k)){ e.preventDefault(); return false; }
+  if(e.ctrlKey && ['u','U','s','S','p','P','a','A'].includes(k)){ e.preventDefault(); return false; }
+  if(e.metaKey && e.altKey && ['I','J','C'].includes(k)){ e.preventDefault(); return false; }
+}, true);
+document.addEventListener('dragstart', e => e.preventDefault());
 </script>
 </body>
 </html>
